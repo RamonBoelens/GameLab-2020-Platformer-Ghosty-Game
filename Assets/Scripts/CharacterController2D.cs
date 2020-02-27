@@ -11,17 +11,22 @@ using UnityEngine.Events;
 
 public class CharacterController2D : MonoBehaviour
 {
-                    [SerializeField] private float     jumpForce = 700f;         // Amount of force added when the player jumps.
-    [Range(0, .3f)] [SerializeField] private float     movementSmoothing = .05f; // How much to smooth out the movement.
-                    [SerializeField] private bool      airControl = false;       // Determines if the player can move while jumping.
-                    [SerializeField] private LayerMask whatIsGround;             // A mask determining what layers is ground to the character.
-                    [SerializeField] private Transform groundCheck;              // A position marker to check if the player is grounded.
+                      [SerializeField] private float      jumpForce = 700f;         // Amount of force added when the player jumps.
+                      [SerializeField] private float      dashSpeed = 40f;          // Determines the speed of the dash movement.
+    [Range(0, 0.25f)] [SerializeField] private float      startDashTime = 0.1f;     // Determines how long the dash lasts. The higher, the further the player dashes.
+    [Range(0, .3f)]   [SerializeField] private float      movementSmoothing = .05f; // How much to smooth out the movement.
+                      [SerializeField] private bool       airControl = false;       // Determines if the player can move while jumping.
+                      [SerializeField] private LayerMask  whatIsGround;             // A mask determining what layers is ground to the character.
+                      [SerializeField] private Transform  groundCheck;              // A position marker to check if the player is grounded.
+                      [SerializeField] private GameObject dashEffect;               // The particle effect played when dashing.
 
     const float groundedRadius = .2f;        // Radius of the overlap circle to determine if grounded.
     private bool grounded;                   // Whether or not the player is grounded.
     private Rigidbody2D rigidbody2D;
     private bool facingRight = true;         // For determining which way the player is facing.
     private Vector3 velocity = Vector3.zero;
+    private float dashTime;                  // Dictates how long the dash movement last.
+    private bool canDash = true;             // Whether or not the player can dash again.
 
     [Header("Events")]
     [Space]
@@ -38,6 +43,11 @@ public class CharacterController2D : MonoBehaviour
             onLandEvent = new UnityEvent();
     }
 
+    private void Start()
+    {
+        dashTime = startDashTime;
+    }
+
     private void FixedUpdate()
     {
         bool wasGrounded = grounded;
@@ -51,6 +61,13 @@ public class CharacterController2D : MonoBehaviour
             if (!wasGrounded)
                 onLandEvent.Invoke();
         }
+
+        // If the player is grounded reset dash boolean
+        if (grounded && !canDash)
+        {
+            canDash = true;
+        }
+
     }
 
     public void Move(float move, bool jump)
@@ -85,6 +102,45 @@ public class CharacterController2D : MonoBehaviour
             grounded = false;
             rigidbody2D.AddForce(new Vector2(0f, jumpForce));
         }
+    }
+
+    public void Dash()
+    {
+        // If the player can't dash or is grounded
+        if (!canDash || grounded)
+            return;
+
+        // Instantiate the particles when dashing
+        Instantiate(dashEffect, transform.position, Quaternion.identity);
+
+        // Do this loop while the dashTime is greater than 0
+        while (dashTime > 0)
+        {
+            // Decrease the timer
+            dashTime -= Time.deltaTime;
+
+            // If the player is facing left..
+            if (!facingRight)
+            {
+                // .. then dash to the right
+                rigidbody2D.velocity = Vector2.left * dashSpeed;
+            } 
+            // If the player is facing right..
+            else if (facingRight)
+            {
+                // .. then dash to the left
+                rigidbody2D.velocity = Vector2.right * dashSpeed;
+            }
+        }
+
+        // If the dash is over
+        if (dashTime <= 0)
+        {
+            // Reset the dash timer
+            dashTime = startDashTime;
+        }
+
+        canDash = false;
     }
 
     private void Flip()

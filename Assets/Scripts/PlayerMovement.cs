@@ -20,6 +20,11 @@ public class PlayerMovement : MonoBehaviour
         {
             jump = true;
         }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            controller.Dash();
+        }
     }
 
     private void FixedUpdate()

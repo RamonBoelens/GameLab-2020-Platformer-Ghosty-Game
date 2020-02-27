@@ -274,7 +274,7 @@ GameObject:
   - component: {fileID: 821908332}
   - component: {fileID: 821908331}
   m_Layer: 0
-  m_Name: Global Volume
+  m_Name: Post Processing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -305,7 +305,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 821908330}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.46251416, y: 1.8082577, z: 1.3632812}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -327,7 +327,6 @@ GameObject:
   - component: {fileID: 877110970}
   - component: {fileID: 877110968}
   - component: {fileID: 877110966}
-  - component: {fileID: 877110969}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -489,22 +488,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 877110970}
   runSpeed: 40
---- !u!114 &877110969
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 877110961}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a73b233f3b882e741b9b418e506ec307, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dashSpeed: 50
-  startDashTime: 0.1
-  dashEffect: {fileID: 4574415328698170968, guid: 7b27c5bc017b96e46b63f39f2f3268d2,
-    type: 3}
 --- !u!114 &877110970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -518,12 +501,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpForce: 700
+  dashSpeed: 100
+  startDashTime: 0.1
   movementSmoothing: 0.05
   airControl: 1
   whatIsGround:
     serializedVersion: 2
     m_Bits: 567
   groundCheck: {fileID: 1516957576}
+  dashEffect: {fileID: 4574415328698170968, guid: 7b27c5bc017b96e46b63f39f2f3268d2,
+    type: 3}
   onLandEvent:
     m_PersistentCalls:
       m_Calls: []
