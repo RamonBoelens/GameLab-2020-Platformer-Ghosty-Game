@@ -11,13 +11,16 @@ using UnityEngine.Events;
 
 public class CharacterController2D : MonoBehaviour
 {
+    [Header("Moving")]
+                      [SerializeField] private LayerMask  whatIsGround;             // A mask determining what layers is ground to the character.
+    [Range(0, .3f)]   [SerializeField] private float      movementSmoothing = .05f; // How much to smooth out the movement.
+                      [SerializeField] private Transform  groundCheck;              // A position marker to check if the player is grounded.
+    [Header("Jumping")]
+                      [SerializeField] private bool       airControl = false;       // Determines if the player can move while jumping.
                       [SerializeField] private float      jumpForce = 700f;         // Amount of force added when the player jumps.
+    [Header("Dashing")]
                       [SerializeField] private float      dashSpeed = 40f;          // Determines the speed of the dash movement.
     [Range(0, 0.25f)] [SerializeField] private float      startDashTime = 0.1f;     // Determines how long the dash lasts. The higher, the further the player dashes.
-    [Range(0, .3f)]   [SerializeField] private float      movementSmoothing = .05f; // How much to smooth out the movement.
-                      [SerializeField] private bool       airControl = false;       // Determines if the player can move while jumping.
-                      [SerializeField] private LayerMask  whatIsGround;             // A mask determining what layers is ground to the character.
-                      [SerializeField] private Transform  groundCheck;              // A position marker to check if the player is grounded.
                       [SerializeField] private GameObject dashEffect;               // The particle effect played when dashing.
 
     const float groundedRadius = .2f;        // Radius of the overlap circle to determine if grounded.
@@ -27,6 +30,7 @@ public class CharacterController2D : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
     private float dashTime;                  // Dictates how long the dash movement last.
     private bool canDash = true;             // Whether or not the player can dash again.
+    private bool canDoubleJump = true;       // Whether or not the player can double jump.
 
     [Header("Events")]
     [Space]
@@ -61,13 +65,6 @@ public class CharacterController2D : MonoBehaviour
             if (!wasGrounded)
                 onLandEvent.Invoke();
         }
-
-        // If the player is grounded reset dash boolean
-        if (grounded && !canDash)
-        {
-            canDash = true;
-        }
-
     }
 
     public void Move(float move, bool jump)
@@ -96,12 +93,28 @@ public class CharacterController2D : MonoBehaviour
         }
 
         // If the player jumps
-        if (grounded && jump)
+        if (jump)
         {
-            // Add a vertical force to the player.
-            grounded = false;
-            rigidbody2D.AddForce(new Vector2(0f, jumpForce));
+            // Check if the player is grounded
+            if (grounded)
+            {
+                Jump();
+            }
+
+            // Check if it's a double jump
+            else if (canDoubleJump && !grounded)
+            {
+                Jump();
+                canDoubleJump = false;
+            }
         }
+    }
+
+    private void Jump()
+    {
+        // Add a vertical force to the player.
+        grounded = false;
+        rigidbody2D.AddForce(new Vector2(0f, jumpForce));
     }
 
     public void Dash()
@@ -152,5 +165,11 @@ public class CharacterController2D : MonoBehaviour
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
+    }
+
+    public void ResetAbilities()
+    {
+        canDash = true;
+        canDoubleJump = true;
     }
 }
