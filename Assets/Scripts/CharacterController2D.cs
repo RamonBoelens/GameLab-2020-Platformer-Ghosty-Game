@@ -20,7 +20,7 @@ public class CharacterController2D : MonoBehaviour
                       [SerializeField] private float      jumpForce = 700f;         // Amount of force added when the player jumps.
     [Header("Dashing")]
                       [SerializeField] private float      dashSpeed = 40f;          // Determines the speed of the dash movement.
-    [Range(0, 0.25f)] [SerializeField] private float      startDashTime = 0.1f;     // Determines how long the dash lasts. The higher, the further the player dashes.
+    [Range(0, 1.75f)] [SerializeField] private float      startDashTime = 0.1f;     // Determines how long the dash lasts. The higher, the further the player dashes.
                       [SerializeField] private GameObject dashEffect;               // The particle effect played when dashing.
 
     const float groundedRadius = .2f;        // Radius of the overlap circle to determine if grounded.
@@ -31,6 +31,7 @@ public class CharacterController2D : MonoBehaviour
     private float dashTime;                  // Dictates how long the dash movement last.
     private bool canDash = true;             // Whether or not the player can dash again.
     private bool canDoubleJump = true;       // Whether or not the player can double jump.
+    private int activeAbillity;              // Stores what ability is active. 0 = None. 1 = Double Jump. 2 = Air Dash. 3 = Wall Climbing
 
     [Header("Events")]
     [Space]
@@ -102,7 +103,7 @@ public class CharacterController2D : MonoBehaviour
             }
 
             // Check if it's a double jump
-            else if (canDoubleJump && !grounded)
+            else if (canDoubleJump && !grounded && activeAbillity == 1)
             {
                 Jump();
                 canDoubleJump = false;
@@ -119,6 +120,10 @@ public class CharacterController2D : MonoBehaviour
 
     public void Dash()
     {
+        // Check if the ability air dash is active
+        if (activeAbillity != 2)
+            return;
+
         // If the player can't dash or is grounded
         if (!canDash || grounded)
             return;
@@ -171,5 +176,10 @@ public class CharacterController2D : MonoBehaviour
     {
         canDash = true;
         canDoubleJump = true;
+    }
+
+    public void SetActiveAbility (int ability)
+    {
+        activeAbillity = ability;
     }
 }
