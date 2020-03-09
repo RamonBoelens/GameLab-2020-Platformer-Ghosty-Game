@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 52d1677e54811db4bb52f7b36e1aec51, type: 3}
-  m_Name: Cat 5 Card
+  m_Name: Cat 4 Card
   m_EditorClassIdentifier: 
-  category: 4
-  description: This is a category 5 card
+  category: 3
+  description: This is a category 4 card
   artwork: {fileID: 0}
+  points: 4

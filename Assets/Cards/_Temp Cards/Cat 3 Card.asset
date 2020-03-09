@@ -15,3 +15,4 @@ MonoBehaviour:
   category: 2
   description: This is a category 3 card
   artwork: {fileID: 0}
+  points: 5

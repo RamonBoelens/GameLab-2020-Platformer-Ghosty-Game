@@ -212,7 +212,7 @@ MonoBehaviour:
   categoryText: {fileID: 3570251933063682779}
   artworkImage: {fileID: 3570251934438961770}
   descriptionText: {fileID: 3570251934247283332}
-  catergoryNumberText: {fileID: 3570251934735734052}
+  pointsText: {fileID: 3570251934735734052}
   cardTemplateImage: {fileID: 3570251934830296557}
 --- !u!1 &3570251934247283330
 GameObject:
@@ -456,7 +456,7 @@ GameObject:
   - component: {fileID: 3570251934735734053}
   - component: {fileID: 3570251934735734052}
   m_Layer: 5
-  m_Name: Category Number
+  m_Name: Points
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

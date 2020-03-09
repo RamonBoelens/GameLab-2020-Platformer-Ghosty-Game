@@ -14,7 +14,7 @@ public class CardDisplay : MonoBehaviour
     public Image artworkImage;
 
     public TextMeshProUGUI descriptionText;
-    public TextMeshProUGUI catergoryNumberText;
+    public TextMeshProUGUI pointsText;
 
     public Image cardTemplateImage;
 
@@ -37,7 +37,8 @@ public class CardDisplay : MonoBehaviour
         artworkImage.sprite = card.artwork;
 
         descriptionText.text = card.description;
-        catergoryNumberText.text = category.ToString();
+        pointsText.text = card.points.ToString();
+
     }
 
     private void SetupCardColor()

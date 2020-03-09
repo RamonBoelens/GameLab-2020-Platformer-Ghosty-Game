@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d1677e54811db4bb52f7b36e1aec51, type: 3}
+  m_Name: Finnish Business People
+  m_EditorClassIdentifier: 
+  category: 0
+  description: "You are about to meet with a group of Finnish business people. You
+    see that you are going to be about 10 minutes late, what should you do?\n\nA.
+    Call immediately and let them know you are on your way. \nB. Relax. It's normal
+    to be 10 minutes late - you might even be the first arrival.\nC. Cancel the meeting
+    because you are late."
+  artwork: {fileID: 0}
+  points: 3
