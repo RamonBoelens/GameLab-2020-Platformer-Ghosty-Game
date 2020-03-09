@@ -14,25 +14,12 @@ public enum Category
 [CreateAssetMenu(fileName = "New Card", menuName = "Card")]
 public class Card : ScriptableObject
 {
-    public Category category;
+    [SerializeField] private Category category;
     [TextArea(3, 10)]
-    public string description;
-    public Sprite artwork;
-    public int points;
+    [SerializeField] private string description;
+    [SerializeField] private Sprite artwork;
 
-    public int GetCategoryNumber()
-    {
-        if (category == Category.DiversiCHOICE)
-            return 1;
-        else if (category == Category.DiversiRISK)
-            return 2;
-        else if (category == Category.DiversiSHARE)
-            return 3;
-        else if (category == Category.DiversiSMART)
-            return 4;
-        else if (category == Category.DiversiGUIDE)
-            return 5;
-        else
-            return 0;
-    }
+    public Category Category => category;
+    public string Description => description;
+    public Sprite Artwork => artwork;
 }

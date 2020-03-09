@@ -8,65 +8,58 @@ public class CardDisplay : MonoBehaviour
 {
 
     public Card card;
-
-    public TextMeshProUGUI categoryText;
-
-    public Image artworkImage;
-
+    public Image cardImageSlot;
+    public Image artworkImageSlot;
     public TextMeshProUGUI descriptionText;
-    public TextMeshProUGUI pointsText;
 
-    public Image cardTemplateImage;
-
-    private int category;
-
+    public Sprite[] cardTemplates;
 
     // Start is called before the first frame update
     void Start()
     {
-        category = card.GetCategoryNumber();
-
         InitCardValues();
-        SetupCardColor();
     }
 
     private void InitCardValues()
     {
-        categoryText.text = card.category.ToString();
+        // Setup Images
+        SetupCardTemplate(card.Category);
+        artworkImageSlot.sprite = card.Artwork;
 
-        artworkImage.sprite = card.artwork;
-
-        descriptionText.text = card.description;
-        pointsText.text = card.points.ToString();
-
+        // Setup Text
+        descriptionText.text = card.Description;
     }
 
-    private void SetupCardColor()
+    private void SetupCardTemplate(Category cat)
     {
-        if (category == 0)
+        if (cat == Category.DiversiCHOICE)
         {
-            Debug.LogWarning("Card category isn't initialized.");
-            return;
+            cardImageSlot.sprite = cardTemplates[0];
         }
-        else if (category == 1)
+        else if (cat == Category.DiversiGUIDE)
         {
-            cardTemplateImage.color = Color.blue;
+            cardImageSlot.sprite = cardTemplates[1];
         }
-        else if (category == 2)
+        else if (cat == Category.DiversiRISK)
         {
-            cardTemplateImage.color = Color.cyan;
+            cardImageSlot.sprite = cardTemplates[2];
         }
-        else if (category == 3)
+        else if (cat == Category.DiversiSHARE)
         {
-            cardTemplateImage.color = Color.green;
+            cardImageSlot.sprite = cardTemplates[3];
         }
-        else if (category == 4)
+        else if (cat == Category.DiversiSMART)
         {
-            cardTemplateImage.color = Color.magenta;
+            cardImageSlot.sprite = cardTemplates[4];
         }
-        else if (category == 5)
+        else
         {
-            cardTemplateImage.color = Color.yellow;
+            Debug.LogError("Can't setup the card template because the card has no category!");
         }
+    }
+
+    public void UpdateCard()
+    {
+        InitCardValues();
     }
 }
