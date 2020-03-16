@@ -9,32 +9,43 @@ public class GameManager : MonoBehaviour
     public Card currentCard;
     public List<Card> cards;
     public List<Card> markedCards;
+    public List<GameObject> screens; // 0 = Setup screen. 1 = Main Game. 3 = Marked Cards.
 
     private int currentCardIndex;
 
     // Start is called before the first frame update
     void Start()
     {
-        ShuffleCards();
-
-        currentCardIndex = 0;
-        currentCard = cards[currentCardIndex];
-
-        cardDisplay.card = currentCard;
+        // Get screen with all the cards
+        // So the facilitator can choose what cards to play with
+        EnableScreen(screens[0]);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            NextCard();
+            StartGame();
         }
+    }
 
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            MarkCard();
-        }
+    public void StartGame()
+    {
+        // Fill the list with all the selected cards
+        // Shuffle the cards if needed
+        ShuffleCards();
+        // Setup the first card
+        currentCardIndex = 0;
+        currentCard = cards[currentCardIndex];
+        cardDisplay.card = currentCard;
+        // Get the screen up for the main game
+        EnableScreen(screens[1]);
+    }
+
+    public void SetupMarkedCards()
+    {
+        // Setup the first marked card
+        // Get the screen up for the marked cards
     }
 
     public void MarkCard()
@@ -48,6 +59,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        // Add the card to the marked cards list
         markedCards.Add(currentCard);
     }
 
@@ -74,6 +86,25 @@ public class GameManager : MonoBehaviour
             int randomIndex = Random.Range(i, cards.Count);
             cards[i] = cards[randomIndex];
             cards[randomIndex] = temp;
+        }
+    }
+
+    private void EnableScreen(GameObject _screen)
+    {
+        // Go over the screen list
+        foreach (GameObject screen in screens)
+        {
+            // Check is the screen provided is the same as the screen in the list
+            if (screen != _screen)
+            {
+                // If not then disable the screen (GameObject)
+                screen.SetActive(false);
+            }
+            else
+            {
+                // Else enable it because it is the right screen
+                screen.SetActive(enabled);
+            }
         }
     }
 }
