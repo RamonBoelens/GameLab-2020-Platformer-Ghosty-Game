@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0156529595581f94bb75bbaa5b907a11, type: 3}
+  m_Name: Birds
+  m_EditorClassIdentifier: 
+  name: Birds
+  instruction: Four birds are sitting in a tree. If a hunter shoots one, how many
+    are left?
+  bck_Answer: C. 0. If you shoot one, the others will fly away. This question is
+    an intresting test of cultural perspectives. People from many Western cultures
+    are likely to see this as an abstract mathematical problem and tend to asnwer
+    A, 3, whereas more holistic thinking cultures may focus on the situation's real
+    outcomes.
+  bck_FollowUp: If you chose the correct answer, keep this card. If not, discard
+    it.
+  answers:
+  - A. 3
+  - B. 2
+  - C. 0
+  correctAnswer: 2
+  artwork: {fileID: 0}

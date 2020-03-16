@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class CardDisplay : MonoBehaviour
+public class CardDisplay2D : MonoBehaviour
 {
 
-    public Card card;
+    public Card2D card;
     public Image cardImageSlot;
     public Image artworkImageSlot;
     public TextMeshProUGUI descriptionText;

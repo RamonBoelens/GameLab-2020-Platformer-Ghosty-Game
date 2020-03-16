@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ca4850fc7a8236419f347551c68d759, type: 3}
+  m_Name: Fingerprints
+  m_EditorClassIdentifier: 
+  name: Fingerprints
+  instruction: '"Values are like fingerprints. Nobody''s are the same, but you leave
+    ''em all over everything you do."'
+  followUp: After you read this card aloud, any team member, including you, may comment
+    on how it can add to our sense of cultural competence. Keep this card.
+  quote: 'Elvis Presley (1935 - 1977)
+
+    US pop singer'
+  artwork: {fileID: 0}

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2a2a82c40ed539489915baab6628b8e, type: 3}
+  m_Name: Unimportant Rule
+  m_EditorClassIdentifier: 
+  name: Unimportant Rule
+  instruction: You violated what would be an unimportant rule in your own culture
+    only to discover that this rule is taken far more seriously in the culture  you
+    are presently working in. Now you must pay for the consequences of this mistake,
+    as you have lost considerable credibility with your new colleagues.
+  followUp: If you were, in fact, the person in this situation, how might you feel
+    or react? Tell your team, and then keep this card.
+  artwork: {fileID: 0}

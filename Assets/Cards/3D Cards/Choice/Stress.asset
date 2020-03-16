@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b557d57d6a9f144ab25630be53c9c1c, type: 3}
+  m_Name: Stress
+  m_EditorClassIdentifier: 
+  name: Stress
+  instruction: Doing what you can do as a manager to lessen the stress on individuals
+    and groups under your supervision is likely to reduce ethnic and cultural tensions
+    as well, even if the stress is unrelated to cultural issues.
+  bck_Answer: True. Under stress individuals tend to revert to their earliest learned
+    values and surival behaviors. Their tolerance for people different from them
+    is reduced and they are often likely to accuse or blame these people for the
+    discomfort they are currently experiencing.
+  bck_FollowUp: If you chose the better answer, keep this card. If not, discard it.
+  answer: 1
+  artwork: {fileID: 0}

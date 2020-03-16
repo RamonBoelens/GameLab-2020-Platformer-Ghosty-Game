@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager2D : MonoBehaviour
 {
-    public CardDisplay cardDisplay;
+    public CardDisplay2D cardDisplay;
 
-    public Card currentCard;
-    public List<Card> cards;
-    public List<Card> markedCards;
+    public Card2D currentCard;
+    public List<Card2D> cards;
+    public List<Card2D> markedCards;
     public List<GameObject> screens; // 0 = Setup screen. 1 = Main Game. 3 = Marked Cards.
 
     private int currentCardIndex;
@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
 
     public void MarkCard()
     {
-        foreach (Card card in markedCards)
+        foreach (Card2D card in markedCards)
         {
             if (card == currentCard)
             {
@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < cards.Count; i++)
         {
-            Card temp = cards[i];
+            Card2D temp = cards[i];
             int randomIndex = Random.Range(i, cards.Count);
             cards[i] = cards[randomIndex];
             cards[randomIndex] = temp;

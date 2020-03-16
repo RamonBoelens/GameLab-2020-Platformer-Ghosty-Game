@@ -11,8 +11,8 @@ public enum Category
     DiversiGUIDE,
 }
 
-[CreateAssetMenu(fileName = "New Card", menuName = "Card")]
-public class Card : ScriptableObject
+[CreateAssetMenu(fileName = "New Card", menuName = "Cards/2D Card")]
+public class Card2D : ScriptableObject
 {
     [SerializeField] private Category category;
     [TextArea(3, 10)]
