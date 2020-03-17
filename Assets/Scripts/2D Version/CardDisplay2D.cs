@@ -30,25 +30,25 @@ public class CardDisplay2D : MonoBehaviour
         descriptionText.text = card.Description;
     }
 
-    private void SetupCardTemplate(Category cat)
+    private void SetupCardTemplate(TwoDCategory cat)
     {
-        if (cat == Category.DiversiCHOICE)
+        if (cat == TwoDCategory.DiversiCHOICE)
         {
             cardImageSlot.sprite = cardTemplates[0];
         }
-        else if (cat == Category.DiversiGUIDE)
+        else if (cat == TwoDCategory.DiversiGUIDE)
         {
             cardImageSlot.sprite = cardTemplates[1];
         }
-        else if (cat == Category.DiversiRISK)
+        else if (cat == TwoDCategory.DiversiRISK)
         {
             cardImageSlot.sprite = cardTemplates[2];
         }
-        else if (cat == Category.DiversiSHARE)
+        else if (cat == TwoDCategory.DiversiSHARE)
         {
             cardImageSlot.sprite = cardTemplates[3];
         }
-        else if (cat == Category.DiversiSMART)
+        else if (cat == TwoDCategory.DiversiSMART)
         {
             cardImageSlot.sprite = cardTemplates[4];
         }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Card", menuName = "Cards/DiversiRISK Card")]
+[CreateAssetMenu(fileName = "New Card", menuName = "Cards/3D/DiversiRISK Card")]
 public class diversiRiskCard : ScriptableObject
 {
     [Header("Basic Information.")]
