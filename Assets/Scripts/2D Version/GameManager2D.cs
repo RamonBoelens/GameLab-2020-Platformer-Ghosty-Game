@@ -105,7 +105,7 @@ public class GameManager2D : MonoBehaviour
             else
             {
                 // Else enable it because it is the right screen
-                screen.SetActive(enabled);
+                screen.SetActive(true);
             }
         }
     }
