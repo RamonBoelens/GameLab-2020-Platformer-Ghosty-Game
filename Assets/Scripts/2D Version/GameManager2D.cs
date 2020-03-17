@@ -18,15 +18,17 @@ public class GameManager2D : MonoBehaviour
     {
         // Get screen with all the cards
         // So the facilitator can choose what cards to play with
-        EnableScreen(screens[0]);
+        //EnableScreen(screens[1]);
+
+        StartGame();
     }
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        /*if (Input.GetKeyDown(KeyCode.Space))
         {
             StartGame();
-        }
+        }*/
     }
 
     public void StartGame()
