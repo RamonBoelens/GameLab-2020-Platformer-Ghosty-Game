@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Stress
   m_EditorClassIdentifier: 
   name: Stress
+  cardFront: {fileID: 2100000, guid: ad6a2565b32bf224ba277715ab9d33c8, type: 2}
+  cardBack: {fileID: 2100000, guid: 9091140226950774f9cade84a8eb9699, type: 2}
+  artwork: {fileID: 0}
   instruction: Doing what you can do as a manager to lessen the stress on individuals
     and groups under your supervision is likely to reduce ethnic and cultural tensions
     as well, even if the stress is unrelated to cultural issues.
@@ -22,4 +25,3 @@ MonoBehaviour:
     discomfort they are currently experiencing.
   bck_FollowUp: If you chose the better answer, keep this card. If not, discard it.
   answer: 1
-  artwork: {fileID: 0}

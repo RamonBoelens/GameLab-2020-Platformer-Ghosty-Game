@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Birds
   m_EditorClassIdentifier: 
   name: Birds
+  cardFront: {fileID: 2100000, guid: 2c61682b2d16d734a82942d4d5e96bab, type: 2}
+  cardBack: {fileID: 2100000, guid: 090cc3625ff65224e8e05ae0a074adcb, type: 2}
+  artwork: {fileID: 0}
   instruction: Four birds are sitting in a tree. If a hunter shoots one, how many
     are left?
   bck_Answer: C. 0. If you shoot one, the others will fly away. This question is
@@ -27,4 +30,3 @@ MonoBehaviour:
   - B. 2
   - C. 0
   correctAnswer: 2
-  artwork: {fileID: 0}

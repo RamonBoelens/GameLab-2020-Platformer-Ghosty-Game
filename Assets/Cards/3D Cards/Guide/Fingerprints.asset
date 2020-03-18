@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Fingerprints
   m_EditorClassIdentifier: 
   name: Fingerprints
+  cardFront: {fileID: 2100000, guid: af0f4e50561602540b345cc507e0427f, type: 2}
+  cardBack: {fileID: 2100000, guid: 41547842307b5fd46b43641eeb90e1a9, type: 2}
+  artwork: {fileID: 0}
   instruction: '"Values are like fingerprints. Nobody''s are the same, but you leave
     ''em all over everything you do."'
   followUp: After you read this card aloud, any team member, including you, may comment
@@ -20,4 +23,3 @@ MonoBehaviour:
   quote: 'Elvis Presley (1935 - 1977)
 
     US pop singer'
-  artwork: {fileID: 0}

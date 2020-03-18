@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Living Together
   m_EditorClassIdentifier: Assembly-CSharp::DiversiShareCard
   name: Living Together
+  cardFront: {fileID: 2100000, guid: 707fcd81b596da64889b61933bddbfbd, type: 2}
+  cardBack: {fileID: 2100000, guid: 8f79234d36353964fb5d8dff70d29cf6, type: 2}
+  artwork: {fileID: 0}
   instruction: Living together without being married is common in many parts of the
     world today. How is this custom looked upon in your place of origin? What word
     is used to describe one's partner in such an arrangement? Share with your team.
   followUp: After you share, check with your team to see what words they might use
     to express this situation. Keep this card.
-  artwork: {fileID: 0}

@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: Unimportant Rule
   m_EditorClassIdentifier: 
   name: Unimportant Rule
+  cardFront: {fileID: 2100000, guid: 733a0d40297bd3347b0d0324048a6ffc, type: 2}
+  cardBack: {fileID: 2100000, guid: 64268658c1ed28f41ad1f38077965d29, type: 2}
+  artwork: {fileID: 0}
   instruction: You violated what would be an unimportant rule in your own culture
     only to discover that this rule is taken far more seriously in the culture  you
     are presently working in. Now you must pay for the consequences of this mistake,
     as you have lost considerable credibility with your new colleagues.
   followUp: If you were, in fact, the person in this situation, how might you feel
     or react? Tell your team, and then keep this card.
-  artwork: {fileID: 0}
