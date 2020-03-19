@@ -9,6 +9,8 @@ public class NameTransfer : MonoBehaviour
     private List<string> playerNames = new List<string>();
     private string theName;
 
+    public PlayersStorage playersStorage;
+
     public Text inputField;
     public Text textDisplay;
 
@@ -63,5 +65,9 @@ public class NameTransfer : MonoBehaviour
         textDisplay.text = theName;
     }
 
-    // When done send the whole list with player names to the GameManager
+    // Save the names of the players
+    public void SavePlayers()
+    {
+        playersStorage.SavePlayerNames(playerNames);
+    }
 }

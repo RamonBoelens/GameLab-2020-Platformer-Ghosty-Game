@@ -4,25 +4,30 @@ using UnityEngine;
 
 public class Gamemanager : MonoBehaviour
 {
+    [Header("References")]
     public CardDisplay cardDisplay;
+    public PlayersStorage playerStorage;
 
+    [Header("Cards in the game")]
     public List<diversiChoiceCard> choiceCards;
     public List<diversiGuideCard> guideCards;
     public List<diversiRiskCard> riskCards;
     public List<diversiShareCard> shareCards;
     public List<diversiSmartsCard> smartsCards;
 
-    public List<diversiChoiceCard> markedChoiceCards;
-    public List<diversiGuideCard> markedGuideCards;
-    public List<diversiRiskCard> markedRiskCards;
-    public List<diversiShareCard> markedShareCards;
-    public List<diversiSmartsCard> markedSmartsCards;
+    private List<diversiChoiceCard> markedChoiceCards;
+    private List<diversiGuideCard> markedGuideCards;
+    private List<diversiRiskCard> markedRiskCards;
+    private List<diversiShareCard> markedShareCards;
+    private List<diversiSmartsCard> markedSmartsCards;
 
-    private List<int> score;
+    private int[] score;
     private int playerTurn = 0;
 
     private void Start()
     {
+        // Setup the score
+
         NextCard();
     }
 
@@ -41,7 +46,7 @@ public class Gamemanager : MonoBehaviour
 
     public void AddScore(int playerIndex, int points)
     {
-        if (playerIndex < score.Count)
+        if (playerIndex < score.Length)
         {
             Debug.LogError("Could not add score because player " + playerIndex + " does not exist!");
             return;
