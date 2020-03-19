@@ -186,4 +186,29 @@ public class CardDisplay : MonoBehaviour
         thisCardMaterials[1] = new Material(card.CardFront);
         GetComponent<MeshRenderer>().materials = thisCardMaterials;
     }
+
+    public diversiChoiceCard GetChoiceCard()
+    {
+        return choiceCard;
+    }
+
+    public diversiGuideCard GetGuideCard()
+    {
+        return guideCard;
+    }
+
+    public diversiRiskCard GetRiskCard()
+    {
+        return riskCard;
+    }
+
+    public diversiShareCard GetShareCard()
+    {
+        return shareCard;
+    }
+
+    public diversiSmartsCard GetSmartsCard()
+    {
+        return smartsCard;
+    }
 }
