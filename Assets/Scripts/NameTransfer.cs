@@ -9,7 +9,7 @@ public class NameTransfer : MonoBehaviour
     private List<string> playerNames = new List<string>();
     private string theName;
 
-    public PlayersStorage playersStorage;
+    public GameObject teamObject;
 
     public Text inputField;
     public Text textDisplay;
@@ -66,8 +66,9 @@ public class NameTransfer : MonoBehaviour
     }
 
     // Save the names of the players
-    public void SavePlayers()
+    public void SetupPlayers()
     {
-        playersStorage.SavePlayerNames(playerNames);
+        teamObject.GetComponent<PlayersStorage>().SavePlayerNames(playerNames);
+        teamObject.GetComponent<PlayerScores>().SetupScores(playerNames.Count);
     }
 }

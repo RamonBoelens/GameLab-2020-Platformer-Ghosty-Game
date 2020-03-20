@@ -6,31 +6,106 @@ public class Gamemanager : MonoBehaviour
 {
     [Header("References")]
     public CardDisplay cardDisplay;
-    public PlayersStorage playerStorage;
+    public GameObject team;
 
+    // Temporary! --------------------------------------------------------------
     [Header("Cards in the game")]
     public List<diversiChoiceCard> choiceCards;
     public List<diversiGuideCard> guideCards;
     public List<diversiRiskCard> riskCards;
     public List<diversiShareCard> shareCards;
     public List<diversiSmartsCard> smartsCards;
+    // End Temporary! ----------------------------------------------------------
 
+    [Header("Options")]
+    public bool randomizeStartingPlayer;
+
+    // Temporary! --------------------------------------------------------------
     private List<diversiChoiceCard> markedChoiceCards;
     private List<diversiGuideCard> markedGuideCards;
     private List<diversiRiskCard> markedRiskCards;
     private List<diversiShareCard> markedShareCards;
     private List<diversiSmartsCard> markedSmartsCards;
+    // End Temporary! ----------------------------------------------------------
 
-    private int[] score;
-    private int playerTurn = 0;
+    private int playerTurn;
 
+    public enum gamemode { cards, rollingCube };
+    gamemode currentGamemode;
+
+    #region Setup Game
     private void Start()
     {
-        // Setup the score
+        if (randomizeStartingPlayer)
+            playerTurn = RandomizeStartingPlayer();
+        else
+            playerTurn = 0;
 
+        SetupCards();
+
+        // Temporary! ----------------
         NextCard();
+        // End Temporary! ------------
     }
 
+    private int RandomizeStartingPlayer()
+    {
+        return Random.Range(0, team.GetComponent<PlayersStorage>().GetPlayerNames().Count);
+    }
+
+    public void SetupGameMode(gamemode _gamemode)
+    {
+        currentGamemode = _gamemode;
+    }
+
+    public void SetupCards()
+    {
+        // If the game mode is just cards ..
+        if (currentGamemode == gamemode.cards)
+        {
+            // .. then shuffle all the cards and put them in one deck
+            Debug.Log("A game with just cards!");
+        }
+        // Else if the game mode is with a rolling cube ..
+        else if (currentGamemode == gamemode.rollingCube)
+        {
+            // .. then create 5 decks with the different cards and shuffle them individually
+            Debug.Log("A game with the rolling cube!");
+        }
+        else
+        {
+            Debug.LogError("Can't find a gamemode!");
+        }
+    }
+
+    public void ShuffleCards()
+    {
+        // Take a deck of cards and shuffle them!
+    }
+    #endregion
+    #region Gameplay - Just Cards
+
+    #endregion
+    #region Gameplay - Rolling Cube
+    // Role the cube to select the next category
+
+    #endregion
+    #region Gameplay - Shared
+    // Next Card (Need deck)
+
+    // Check Answer (Need currentCard)
+
+    // Add Score to the current player (Need points and current player)
+
+    // Pop card out of the deck (Need currentCard and deck)
+
+    // Mark the current card (Need currentCard)
+
+    // Next turn (Need current players' turn)
+    #endregion
+
+
+    #region Temp code
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Backspace))
@@ -42,18 +117,6 @@ public class Gamemanager : MonoBehaviour
         {
             NextCard();
         }
-    }
-
-    public void AddScore(int playerIndex, int points)
-    {
-        if (playerIndex < score.Length)
-        {
-            Debug.LogError("Could not add score because player " + playerIndex + " does not exist!");
-            return;
-        }
-
-        score[playerIndex] += points;
-        Debug.Log("Player " + playerIndex + " total score: " + score[playerIndex]);
     }
 
     public void MarkCard()
@@ -281,4 +344,5 @@ public class Gamemanager : MonoBehaviour
             Debug.LogError("Can't find the next card!");
         }
     }
+    #endregion TempCode
 }

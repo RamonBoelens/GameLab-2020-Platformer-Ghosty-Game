@@ -151,8 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardDisplay: {fileID: 1624759001}
-  playerStorage: {fileID: 5843005182310094928, guid: 26e0d0a4508ee744584bac3547faf55d,
-    type: 3}
+  team: {fileID: 5843005182310094929, guid: 26e0d0a4508ee744584bac3547faf55d, type: 3}
   choiceCards:
   - {fileID: 11400000, guid: 526f5124e7260584881389d00134d0fd, type: 2}
   guideCards:
@@ -163,11 +162,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 56738556ca3737f44950deff9adce38c, type: 2}
   smartsCards:
   - {fileID: 11400000, guid: d86e444147cb40840b1370ba1d15c240, type: 2}
-  markedChoiceCards: []
-  markedGuideCards: []
-  markedRiskCards: []
-  markedShareCards: []
-  markedSmartsCards: []
+  randomizeStartingPlayer: 0
 --- !u!4 &80690702
 Transform:
   m_ObjectHideFlags: 0
