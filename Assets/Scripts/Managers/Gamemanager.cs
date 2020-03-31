@@ -26,6 +26,9 @@ public class Gamemanager : MonoBehaviour
     private List<diversiRiskCard> markedRiskCards = new List<diversiRiskCard>();
     private List<diversiShareCard> markedShareCards = new List<diversiShareCard>();
     private List<diversiSmartsCard> markedSmartsCards = new List<diversiSmartsCard>();
+
+    private List<string> players;
+    private int[] scores;
     // End Temporary! ----------------------------------------------------------
 
     private int playerTurn;
@@ -44,6 +47,15 @@ public class Gamemanager : MonoBehaviour
         SetupCards();
 
         // Temporary! ----------------
+        Scoreboard scoreboard = GetComponent<Scoreboard>();
+
+        players = team.GetComponent<PlayersStorage>().GetPlayerNames();
+        scores = team.GetComponent<PlayerScores>().GetScores();
+
+        scoreboard.SetupScoreboardDisplay(players);
+        scoreboard.UpdateScoreDisplay(scores);
+
+
         NextCard();
         // End Temporary! ------------
     }
@@ -118,7 +130,7 @@ public class Gamemanager : MonoBehaviour
             NextCard();
         }
 
-        cardDisplay.transform.RotateAround(transform.position, transform.up, Time.deltaTime * 45f);
+        //cardDisplay.transform.RotateAround(transform.position, transform.up, Time.deltaTime * 45f);
     }
 
     public void MarkCard()
