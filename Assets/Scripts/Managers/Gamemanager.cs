@@ -21,11 +21,11 @@ public class Gamemanager : MonoBehaviour
     public bool randomizeStartingPlayer;
 
     // Temporary! --------------------------------------------------------------
-    private List<diversiChoiceCard> markedChoiceCards;
-    private List<diversiGuideCard> markedGuideCards;
-    private List<diversiRiskCard> markedRiskCards;
-    private List<diversiShareCard> markedShareCards;
-    private List<diversiSmartsCard> markedSmartsCards;
+    private List<diversiChoiceCard> markedChoiceCards = new List<diversiChoiceCard>();
+    private List<diversiGuideCard> markedGuideCards = new List<diversiGuideCard>();
+    private List<diversiRiskCard> markedRiskCards = new List<diversiRiskCard>();
+    private List<diversiShareCard> markedShareCards = new List<diversiShareCard>();
+    private List<diversiSmartsCard> markedSmartsCards = new List<diversiSmartsCard>();
     // End Temporary! ----------------------------------------------------------
 
     private int playerTurn;
@@ -117,6 +117,8 @@ public class Gamemanager : MonoBehaviour
         {
             NextCard();
         }
+
+        cardDisplay.transform.RotateAround(transform.position, transform.up, Time.deltaTime * 45f);
     }
 
     public void MarkCard()
