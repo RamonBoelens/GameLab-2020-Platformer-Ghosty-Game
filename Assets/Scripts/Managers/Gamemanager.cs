@@ -222,21 +222,41 @@ public class Gamemanager : MonoBehaviour
     #endregion
     #region Gameplay - Rolling Cube
     // Role the cube to select the next category
+    private void RollTheCube()
+    {
+        // TODO
+    }
 
     #endregion
     #region Gameplay - Shared
     // Next Card (Need deck)
-    public void NextCard (List<Card> cards)
+    public void OnNextCardCallback()
+    {
+        if (currentGamemode == gamemode.cards)
+            NextCard(shuffledDeck);
+        else if (currentGamemode == gamemode.rollingCube)
+            RollTheCube();
+    }
+
+    private void NextCard (List<Card> cards)
     {
         // Check if there are cards left in the deck
+        if (cards.Count <= 0)
+        {
+            Debug.Log("No cards left!");
+            return;
+        }
+
+        // Set the top card as current card
+        currentCard = cards[0];
 
         // Pick the next card
+        cardDisplay.UpdateCard(currentCard);
 
-        // Play animation
-
-        // Set card as current card
+        // Play animation  
 
         // Remove card from the deck
+        cards.Remove(currentCard);
     }
 
     // Check Answer (Need currentCard)

@@ -6,6 +6,22 @@ using UnityEngine.UI;
 
 public class CardDisplay : MonoBehaviour
 {
+    [Header("Card Front")]
+    public TextMeshProUGUI txt_Description;
+    public TextMeshProUGUI txt_Instruction;
+    public TextMeshProUGUI txt_Quote;
+    public TextMeshProUGUI txt_Answers;
+    public Image artwork;
+
+    [Header("Card Back")]
+    public TextMeshProUGUI txt_Explanation;
+
+    private Card currentCard;
+    private Material[] prefabMaterials;
+    private Material[] thisCardMaterials;
+
+
+
     [Header("Card Slots")]
     public diversiChoiceCard choiceCard;
     public diversiGuideCard  guideCard;
@@ -16,24 +32,22 @@ public class CardDisplay : MonoBehaviour
     [Header("Card Front")]
     public TextMeshProUGUI textInstructionFrontSlot;
     public TextMeshProUGUI textAnswersFrontSlot;
-    public TextMeshProUGUI textFollowUpFrontSlot;
-    public Image artwork;
+    //public TextMeshProUGUI textFollowUpFrontSlot;
+    //public Image artwork;
 
     [Header("Card Back")]
     public TextMeshProUGUI textInstructionBackSlot;
-    public TextMeshProUGUI textFollowUpBackSlot;
-
-    private Material[] prefabMaterials;
-    private Material[] thisCardMaterials;
+    //public TextMeshProUGUI textFollowUpBackSlot;
 
     private void Awake()
     {
         prefabMaterials = GetComponent<MeshRenderer>().materials;
+        thisCardMaterials = new Material[2];
     }
 
-    private void Start()
+    public void UpdateCard(Card card)
     {
-        thisCardMaterials = new Material[2];
+        currentCard = card;
     }
 
     public void UpdateChoiceCard(diversiChoiceCard card)
@@ -45,7 +59,7 @@ public class CardDisplay : MonoBehaviour
         smartsCard = null;
 
         // Empty the textfields we don't need
-        textFollowUpFrontSlot.text = null;
+        //textFollowUpFrontSlot.text = null;
 
         // Add card to the card slot
         choiceCard = card;
@@ -54,7 +68,7 @@ public class CardDisplay : MonoBehaviour
         textInstructionFrontSlot.text = card.Instruction;
         textAnswersFrontSlot.text = "True \nFalse";
         textInstructionBackSlot.text = card.BCK_Answer;
-        textFollowUpBackSlot.text = card.BCK_FollowUp;
+        //textFollowUpBackSlot.text = card.BCK_FollowUp;
 
         // Update image if there is one
         if (card.Artwork != null)
@@ -84,7 +98,7 @@ public class CardDisplay : MonoBehaviour
 
         // Empty the textfields we don't need
         textAnswersFrontSlot.text = null;
-        textFollowUpBackSlot.text = null;
+        //textFollowUpBackSlot.text = null;
         textInstructionBackSlot.text = null;
 
         // Add card to the card slot
@@ -92,7 +106,7 @@ public class CardDisplay : MonoBehaviour
 
         // Update the other fields
         textInstructionFrontSlot.text = card.Instruction;
-        textFollowUpFrontSlot.text = card.FollowUp;
+        //textFollowUpFrontSlot.text = card.FollowUp;
 
         // Update image if there is one
         if (card.Artwork != null)
@@ -122,7 +136,7 @@ public class CardDisplay : MonoBehaviour
 
         // Empty the textfields we don't need
         textAnswersFrontSlot.text = null;
-        textFollowUpBackSlot.text = null;
+        //textFollowUpBackSlot.text = null;
         textInstructionBackSlot.text = null;
 
         // Add card to the card slot
@@ -130,7 +144,7 @@ public class CardDisplay : MonoBehaviour
 
         // Update the other fields
         textInstructionFrontSlot.text = card.Instruction;
-        textFollowUpFrontSlot.text = card.FollowUp;
+        //textFollowUpFrontSlot.text = card.FollowUp;
 
         // Update image if there is one
         if (card.Artwork != null)
@@ -159,7 +173,7 @@ public class CardDisplay : MonoBehaviour
 
         // Empty the textfields we don't need
         textAnswersFrontSlot.text = null;
-        textFollowUpBackSlot.text = null;
+        //textFollowUpBackSlot.text = null;
         textInstructionBackSlot.text = null;
 
         // Add card to the card slot
@@ -167,7 +181,7 @@ public class CardDisplay : MonoBehaviour
 
         // Update the other fields
         textInstructionFrontSlot.text = card.Instruction;
-        textFollowUpFrontSlot.text = card.FollowUp;
+        //textFollowUpFrontSlot.text = card.FollowUp;
 
         // Update image if there is one
         if (card.Artwork != null)
