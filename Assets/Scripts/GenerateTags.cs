@@ -9,24 +9,30 @@ public class GenerateTags : MonoBehaviour
     public GameObject prefab_Toggle;
     public GameObject toggleParent;
 
+    private CSVScriptReader database;
+
     private Dictionary<string, Toggle> toggles = new Dictionary<string, Toggle>();
     private List<string> tempTags = new List<string>();
     private List<string> tags = new List<string>();
 
     private void Start()
     {
-        GenerateAllTags();
+        // Find the database
+        database = FindObjectOfType<CSVScriptReader>();
+
+        GenerateAllTags(database.GetCards());
         CheckAllTags();
     }
 
-    private void GenerateAllTags()
+    private void GenerateAllTags(List<Card> _cards)
     {
         // Go over all the cards and add their tags to a temporary list
-        for (int i = 0; i < 189; i++)
+        foreach (Card card in _cards)
         {
-            int rand = Random.Range(1, 1000);
-
-            tempTags.Add("Test tag " + rand);
+            if (card.culture != "" || card.culture != "-")
+            {
+                AddTag(card.culture);
+            }
         }
     }
 
