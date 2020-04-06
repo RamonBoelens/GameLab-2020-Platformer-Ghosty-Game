@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class OnValueChanged : MonoBehaviour
 {
@@ -15,5 +16,6 @@ public class OnValueChanged : MonoBehaviour
     public void OnValueChange()
     {
         createGame.CheckToggles();
+        createGame.Tag(GetComponent<Toggle>().isOn, GetComponentInChildren<TextMeshProUGUI>().text);
     }
 }

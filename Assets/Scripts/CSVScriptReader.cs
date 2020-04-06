@@ -9,10 +9,8 @@ public class CSVScriptReader : MonoBehaviour
     private List<Card> cards = new List<Card>();
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        Debug.Log("Start Loading Database!");
-
         TextAsset csvdata = Resources.Load<TextAsset>("Database sketch");
 
         string[] data = csvdata.text.Split(new char[] { '\n' });

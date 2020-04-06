@@ -17,8 +17,6 @@ public class GameDatabase : MonoBehaviour
         }
 
         gameCards.Add(card);
-
-        Debug.Log("Added Card to the game! " + card.txt_Front);
     }
 
     public void SetGamemode(string dropdownValue)

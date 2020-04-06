@@ -13,7 +13,7 @@ public class CreateGame : MonoBehaviour
     private Dictionary<string, Toggle> toggles = new Dictionary<string, Toggle>();
     private List<string> tags = new List<string>();
 
-    private List<string> chosenTags = new List<string>();
+    private List<string> addedTags = new List<string>();
 
     private void Start()
     {
@@ -37,16 +37,9 @@ public class CreateGame : MonoBehaviour
                 // If the toggle is true ..
                 if (toggle.isOn)
                 {
-                    // .. then set the create game button to interactable, add the tag to the chosen tags and quit this function
+                    // .. then set the create game button to interactable and quit this function
                     SetButtonInteractable(true);
-                    chosenTags.Add(tags[i]);
                     return;
-                }
-                // else the toggle is false
-                else
-                {
-                    // Remove the tag from the chosen tags
-                    chosenTags.Remove(tags[i]);
                 }
             }
             else
@@ -59,6 +52,14 @@ public class CreateGame : MonoBehaviour
         SetButtonInteractable(false);
     }
 
+    public void Tag(bool isAdding, string tag)
+    {
+        if (isAdding)
+            addedTags.Add(tag);
+        else if (!isAdding)
+            addedTags.Remove(tag);
+    }
+
     private void SetButtonInteractable(bool interactable)
     {
         btn_CreateGame.interactable = interactable;
@@ -66,8 +67,6 @@ public class CreateGame : MonoBehaviour
 
     public void SetupGame()
     {
-        Debug.Log("There were " + chosenTags.Count + " tags selected.");
-
         // Get a reference to the card database
         CSVScriptReader database = FindObjectOfType<CSVScriptReader>();
         List<Card> cardDatabase = database.GetCards();
@@ -79,10 +78,10 @@ public class CreateGame : MonoBehaviour
         for (int i = 0; i < cardDatabase.Count; i++)
         {
             // Go over each chosen tag
-            for (int j = 0; j < chosenTags.Count; j++)
+            for (int j = 0; j < addedTags.Count; j++)
             {
                 // If the tag is the same as the one on the card in the database ..
-                if (cardDatabase[i].culture == chosenTags[j])
+                if (cardDatabase[i].culture == addedTags[j])
                 {
                     // .. Then add the card to the gamedatabase
                     gameDatabase.AddCard(cardDatabase[i]);

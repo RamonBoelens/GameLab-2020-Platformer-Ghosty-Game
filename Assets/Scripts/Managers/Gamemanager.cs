@@ -36,8 +36,20 @@ public class Gamemanager : MonoBehaviour
     private List<string> players;
     // End Temporary! ----------------------------------------------------------
 
+    // Combined variables
     private int playerTurn;
     private gamemode currentGamemode;
+    private Card currentCard;
+
+    // Just Cards gameplay variables
+    private List<Card> shuffledDeck;
+
+    // Rolling cube gameplay variables
+    private List<Card> shuffledChoiceDeck;
+    private List<Card> shuffledGuideDeck;
+    private List<Card> shuffledRiskDeck;
+    private List<Card> shuffledsharedDeck;
+    private List<Card> shuffledsmartsDeck;
 
     #region Setup Game
     private void Awake()
@@ -84,12 +96,10 @@ public class Gamemanager : MonoBehaviour
         SetupCards();
 
 
+
         // Temporary! ----------------
-
-        NextCard();
+        TempNextCard();
         // End Temporary! ------------
-
-        
     }
 
     private void SetupPlayers()
@@ -159,7 +169,7 @@ public class Gamemanager : MonoBehaviour
 
                 // And add a maximum of 10 dummy cards to the game
                 List<Card> backupCards = backupDatabase.GetCards();
-                Debug.Log(backupCards.Count);
+
                 int cardsAdded = 10;
 
                 if (backupCards.Count <= 10)
@@ -184,19 +194,9 @@ public class Gamemanager : MonoBehaviour
 
     public void SetupCardsOnlyDeck()
     {
-        Debug.Log("A game with just cards! " + gameDatabase.GetCards().Count + " cards");
-
-        foreach (Card card in gameDatabase.GetCards())
-        {
-            Debug.Log(card.txt_Front);
-        }
-
-        List<Card> shuffledCards = ShuffleCards(gameDatabase.GetCards());
-
-        foreach (Card card in shuffledCards)
-        {
-            Debug.Log(card.txt_Front);
-        }
+        // Shuffle the cards
+        shuffledDeck = new List<Card>();
+        shuffledDeck = ShuffleCards(gameDatabase.GetCards());
     }
 
     public void SetupRollingCubeDeck()
@@ -226,6 +226,18 @@ public class Gamemanager : MonoBehaviour
     #endregion
     #region Gameplay - Shared
     // Next Card (Need deck)
+    public void NextCard (List<Card> cards)
+    {
+        // Check if there are cards left in the deck
+
+        // Pick the next card
+
+        // Play animation
+
+        // Set card as current card
+
+        // Remove card from the deck
+    }
 
     // Check Answer (Need currentCard)
 
@@ -258,18 +270,18 @@ public class Gamemanager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
-            MarkCard();
+            TempMarkCard();
         }
 
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            NextCard();
+            TempNextCard();
         }
 
         //cardDisplay.transform.RotateAround(transform.position, transform.up, Time.deltaTime * 45f);
     }
 
-    public void MarkCard()
+    public void TempMarkCard()
     {
         diversiChoiceCard choiceCard = cardDisplay.GetChoiceCard();
         diversiGuideCard guideCard = cardDisplay.GetGuideCard();
@@ -363,7 +375,7 @@ public class Gamemanager : MonoBehaviour
         }
     }
 
-    public void NextCard()
+    public void TempNextCard()
     {
         NextPlayer();
 
