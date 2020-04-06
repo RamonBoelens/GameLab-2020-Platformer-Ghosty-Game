@@ -7,6 +7,7 @@ using TMPro;
 public class CreateGame : MonoBehaviour
 {
     public Button btn_CreateGame;
+    public TMP_Dropdown dropdown;
 
     private GenerateTags generateTags;
     private Dictionary<string, Toggle> toggles = new Dictionary<string, Toggle>();
@@ -88,5 +89,8 @@ public class CreateGame : MonoBehaviour
                 }
             }
         }
+
+        // Set the gamemode
+        gameDatabase.SetGamemode(dropdown.options[dropdown.value].text);
     }
 }

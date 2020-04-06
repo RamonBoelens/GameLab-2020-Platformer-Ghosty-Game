@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameDatabase : MonoBehaviour
 {
     List<Card> gameCards = new List<Card>();
-
+    gamemode gamemode;
     public void AddCard(Card card)
     {
         for (int i = 0; i < gameCards.Count; i++)
@@ -19,5 +19,31 @@ public class GameDatabase : MonoBehaviour
         gameCards.Add(card);
 
         Debug.Log("Added Card to the game! " + card.txt_Front);
+    }
+
+    public void SetGamemode(string dropdownValue)
+    {
+        if (dropdownValue == "Only Cards")
+        {
+            gamemode = gamemode.cards;
+        }
+        else if (dropdownValue == "Rolling Cube")
+        {
+            gamemode = gamemode.rollingCube;
+        }
+        else
+        {
+            Debug.LogWarning("Can't set the gamemode to " + dropdownValue + " because that doens't exist!");
+        }
+    }
+
+    public List<Card> GetCards()
+    {
+        return gameCards;
+    }
+
+    public gamemode GetGamemode()
+    {
+        return gamemode;
     }
 }

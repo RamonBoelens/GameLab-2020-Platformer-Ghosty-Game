@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class Scoreboard : MonoBehaviour
@@ -8,11 +9,14 @@ public class Scoreboard : MonoBehaviour
     [Header("References")]
     public GameObject prefab_PlayerUI;
     public GameObject ui_PlayerParent;
-    public TextMeshProUGUI text_Name;
-    public TextMeshProUGUI text_Score;
+
+    [Header("Images")]
+    public Sprite blankNameBackground;
+    public Sprite highlightedNameBackground;
 
     private Gamemanager gamemanager;
     private List<TextMeshProUGUI> textField_PlayerScores = new List<TextMeshProUGUI>();
+    private List<Image> backgroundImages = new List<Image>();
 
     private void Awake()
     {
@@ -33,6 +37,10 @@ public class Scoreboard : MonoBehaviour
             // Find and store the player score field
             Transform scoreField = playerPrefab.transform.Find("TXT_Points");
             textField_PlayerScores.Add(scoreField.GetComponentInParent<TextMeshProUGUI>());
+
+            // Find and store the background image
+            Transform background = playerPrefab.transform.Find("Background");
+            backgroundImages.Add(background.GetComponentInParent<Image>());
         }
     }
 
@@ -43,5 +51,15 @@ public class Scoreboard : MonoBehaviour
         {
             textField_PlayerScores[i].GetComponent<TextMeshProUGUI>().text = scores[i].ToString();
         }
+    }
+
+    public void UpdateTurn(int playerTurnID)
+    {
+        for (int i = 0; i < backgroundImages.Count; i++)
+        {
+            backgroundImages[i].sprite = blankNameBackground;
+        }
+
+        backgroundImages[playerTurnID].sprite = highlightedNameBackground;
     }
 }

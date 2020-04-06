@@ -6,15 +6,14 @@ using UnityEngine;
 
 public class CSVScriptReader : MonoBehaviour
 {
-    public TextAsset database;
-
     private List<Card> cards = new List<Card>();
 
     // Start is called before the first frame update
     void Start()
     {
-        //TextAsset csvdata = Resources.Load<TextAsset>("Database sketch");
-        TextAsset csvdata = database;
+        Debug.Log("Start Loading Database!");
+
+        TextAsset csvdata = Resources.Load<TextAsset>("Database sketch");
 
         string[] data = csvdata.text.Split(new char[] { '\n' });
 
