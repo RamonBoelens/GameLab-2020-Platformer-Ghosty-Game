@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &785302177898349980
 RectTransform:
   m_ObjectHideFlags: 0
@@ -257,11 +257,26 @@ MonoBehaviour:
   txt_Answers: {fileID: 5924385462743410112}
   artwork: {fileID: 5924385462756556238}
   txt_Explanation: {fileID: 5924385462661462640}
-  choiceCard: {fileID: 0}
-  guideCard: {fileID: 0}
-  riskCard: {fileID: 0}
-  shareCard: {fileID: 0}
-  smartsCard: {fileID: 0}
+  choiceCard:
+  - {fileID: 2100000, guid: 9091140226950774f9cade84a8eb9699, type: 2}
+  - {fileID: 2100000, guid: ad6a2565b32bf224ba277715ab9d33c8, type: 2}
+  guideCard:
+  - {fileID: 2100000, guid: 41547842307b5fd46b43641eeb90e1a9, type: 2}
+  - {fileID: 2100000, guid: af0f4e50561602540b345cc507e0427f, type: 2}
+  riskCard:
+  - {fileID: 2100000, guid: 64268658c1ed28f41ad1f38077965d29, type: 2}
+  - {fileID: 2100000, guid: 733a0d40297bd3347b0d0324048a6ffc, type: 2}
+  shareCard:
+  - {fileID: 2100000, guid: 8f79234d36353964fb5d8dff70d29cf6, type: 2}
+  - {fileID: 2100000, guid: 707fcd81b596da64889b61933bddbfbd, type: 2}
+  smartsCard:
+  - {fileID: 2100000, guid: 090cc3625ff65224e8e05ae0a074adcb, type: 2}
+  - {fileID: 2100000, guid: 2c61682b2d16d734a82942d4d5e96bab, type: 2}
+  choiceCard1: {fileID: 0}
+  guideCard1: {fileID: 0}
+  riskCard1: {fileID: 0}
+  shareCard1: {fileID: 0}
+  smartsCard1: {fileID: 0}
   textInstructionFrontSlot: {fileID: 5924385462706541804}
   textAnswersFrontSlot: {fileID: 5924385462743410112}
   textInstructionBackSlot: {fileID: 5924385462661462640}
