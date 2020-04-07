@@ -169,6 +169,7 @@ GameObject:
   - component: {fileID: 7644322986472523023}
   - component: {fileID: 4119278714318469622}
   - component: {fileID: 1460252913249620819}
+  - component: {fileID: 7274324095366734983}
   m_Layer: 0
   m_Name: Card
   m_TagString: Untagged
@@ -272,14 +273,25 @@ MonoBehaviour:
   smartsCard:
   - {fileID: 2100000, guid: 090cc3625ff65224e8e05ae0a074adcb, type: 2}
   - {fileID: 2100000, guid: 2c61682b2d16d734a82942d4d5e96bab, type: 2}
-  choiceCard1: {fileID: 0}
-  guideCard1: {fileID: 0}
-  riskCard1: {fileID: 0}
-  shareCard1: {fileID: 0}
-  smartsCard1: {fileID: 0}
-  textInstructionFrontSlot: {fileID: 5924385462706541804}
-  textAnswersFrontSlot: {fileID: 5924385462743410112}
-  textInstructionBackSlot: {fileID: 5924385462661462640}
+--- !u!95 &7274324095366734983
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2384172384079154474}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 763ce76526eec784fb84bf6ce54f1799, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2446238420292501957
 GameObject:
   m_ObjectHideFlags: 0

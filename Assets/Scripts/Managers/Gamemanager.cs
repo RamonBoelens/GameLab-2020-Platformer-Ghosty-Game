@@ -13,6 +13,7 @@ public class Gamemanager : MonoBehaviour
     public GameObject team;
     public List<GameObject> answerButtons = new List<GameObject>();
     public GameObject answerPanel;
+    public Animator cardAnimator;
 
     private Scoreboard scoreboard;
     private GameDatabase gameDatabase;
@@ -259,6 +260,8 @@ public class Gamemanager : MonoBehaviour
 
     private void NextCard (List<Card> cards)
     {
+        StartCoroutine(RotateCard(true));
+
         cardAnswered = true;
         answerPanel.SetActive(false);
 
@@ -286,6 +289,25 @@ public class Gamemanager : MonoBehaviour
             SetupAnswers();
             cardAnswered = false;
         }
+    }
+
+    IEnumerator RotateCard(bool RotateBack)
+    {
+        if (RotateBack == true)
+        {
+            cardAnimator.SetBool("ani_HasAnswered", false);
+            cardAnimator.SetBool("ani_RotateBack", true);
+        }
+        else
+        {
+            cardAnimator.SetBool("ani_HasAnswered", true);
+            cardAnimator.SetBool("ani_RotateBack", false);
+        }
+
+        yield return new WaitForSeconds(2.0f);
+
+        cardAnimator.SetBool("ani_HasAnswered", false);
+        cardAnimator.SetBool("ani_RotateBack", false);
     }
 
     private void SetupAnswers()
@@ -354,6 +376,8 @@ public class Gamemanager : MonoBehaviour
     // Check Answer
     public void CheckAnswer(int buttonID)
     {
+        StartCoroutine(RotateCard(false));
+
         if (cardAnswered == true)
         {
             Debug.Log("Already answered!");
