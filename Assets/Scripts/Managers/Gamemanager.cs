@@ -14,10 +14,13 @@ public class Gamemanager : MonoBehaviour
     public List<GameObject> answerButtons = new List<GameObject>();
     public GameObject answerPanel;
     public Animator cardAnimator;
+    public GameObject markedCardsTitle;
 
     private Scoreboard scoreboard;
     private GameDatabase gameDatabase;
     private CSVScriptReader backupDatabase;
+    private _SceneManager sceneManager;
+    private EndStats endStats;
 
     [Header("Options")]
     public bool randomizeStartingPlayer;
@@ -47,6 +50,7 @@ public class Gamemanager : MonoBehaviour
         // References
         gameDatabase = FindObjectOfType<GameDatabase>();
         scoreboard = GetComponent<Scoreboard>();
+        sceneManager = FindObjectOfType<_SceneManager>();
 
         // If the database for this game is non-existent .. 
         if (gameDatabase == null)
@@ -70,6 +74,15 @@ public class Gamemanager : MonoBehaviour
         GO.AddComponent<CSVScriptReader>();
 
         backupDatabase = GO.GetComponent<CSVScriptReader>();
+    }
+
+    private void CreateSceneManager()
+    {
+        GameObject GO = new GameObject("SceneManager");
+        GO.AddComponent<_SceneManager>();
+        GO.AddComponent<DDOL>();
+
+        sceneManager = GO.GetComponent<_SceneManager>();
     }
 
     private void Start()
@@ -271,8 +284,12 @@ public class Gamemanager : MonoBehaviour
                 else if (hit.transform.name == "StickyNotes") OnMarkCardCallback();
             }
         }
-    }
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            EndGame();
+        }
+    }
 
     private void NextCard (List<Card> cards)
     {
@@ -284,7 +301,16 @@ public class Gamemanager : MonoBehaviour
         // Check if there are cards left in the deck
         if (cards.Count <= 0)
         {
-            Debug.Log("No cards left!");
+            markedCardsTitle.SetActive(true);
+
+            if (markedCards == null || markedCards.Count == 0)
+            {
+                EndGame();
+            }
+            else
+            {
+                NextMarkedCard(markedCards);
+            }
             return;
         }
 
@@ -307,6 +333,15 @@ public class Gamemanager : MonoBehaviour
         }
     }
 
+    private void NextMarkedCard (List<Card> cards)
+    {
+        currentCard = cards[0];
+
+        cardDisplay.UpdateCard(currentCard);
+
+        cards.Remove(currentCard);
+    }
+
     IEnumerator RotateCard(bool RotateBack)
     {
         if (RotateBack == true)
@@ -320,7 +355,7 @@ public class Gamemanager : MonoBehaviour
             cardAnimator.SetBool("ani_RotateBack", false);
         }
 
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(1.0f);
 
         cardAnimator.SetBool("ani_HasAnswered", false);
         cardAnimator.SetBool("ani_RotateBack", false);
@@ -406,7 +441,6 @@ public class Gamemanager : MonoBehaviour
         {
             if (buttonID == 0)
             {
-                Debug.Log("Correct Answer!");
                 ScorePoints();
                 return;
             }
@@ -416,7 +450,6 @@ public class Gamemanager : MonoBehaviour
         {
             if (buttonID == 1)
             {
-                Debug.Log("Correct Answer!");
                 ScorePoints();
                 return;
             }
@@ -426,7 +459,6 @@ public class Gamemanager : MonoBehaviour
         {
             if (buttonID == 2)
             {
-                Debug.Log("Correct Answer!");
                 ScorePoints();
                 return;
             }
@@ -475,6 +507,31 @@ public class Gamemanager : MonoBehaviour
 
         // Update the background image
         scoreboard.UpdateTurn(playerTurn);
+    }
+
+    private void EndGame()
+    {
+        endStats = FindObjectOfType<EndStats>();
+
+        // Create an endstats object if it doens't exist
+        if (FindObjectOfType<EndStats>() == null)
+        {
+            GameObject GO = new GameObject("End Stats");
+            GO.AddComponent<EndStats>();
+            GO.AddComponent<DDOL>();
+
+            endStats = GO.GetComponent<EndStats>();
+        }
+
+        // Save players and score
+        endStats.SaveData(players, GetCurrentScores());
+
+        if (FindObjectOfType<_SceneManager>() == null)
+        {
+            CreateSceneManager();
+        }
+
+        sceneManager.LoadScene(6);
     }
 
     private int[] GetCurrentScores()
