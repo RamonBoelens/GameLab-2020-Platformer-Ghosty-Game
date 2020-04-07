@@ -258,6 +258,22 @@ public class Gamemanager : MonoBehaviour
         MarkCard(currentCard);
     }
 
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.transform.name == "Buzzer") OnNextCardCallback();
+                else if (hit.transform.name == "StickyNotes") OnMarkCardCallback();
+            }
+        }
+    }
+
+
     private void NextCard (List<Card> cards)
     {
         StartCoroutine(RotateCard(true));
