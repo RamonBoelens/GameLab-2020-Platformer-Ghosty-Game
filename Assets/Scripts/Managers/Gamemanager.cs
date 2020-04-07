@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public enum gamemode { cards, rollingCube };
 
@@ -9,6 +11,8 @@ public class Gamemanager : MonoBehaviour
     [Header("References")]
     public CardDisplay cardDisplay;
     public GameObject team;
+    public List<GameObject> answerButtons = new List<GameObject>();
+    public GameObject answerPanel;
 
     private Scoreboard scoreboard;
     private GameDatabase gameDatabase;
@@ -24,6 +28,7 @@ public class Gamemanager : MonoBehaviour
     private Card currentCard;
     private List<Card> markedCards;
     private PlayerScores playerScores;
+    private bool cardAnswered;
 
     // Just Cards gameplay variables
     private List<Card> shuffledDeck;
@@ -227,8 +232,17 @@ public class Gamemanager : MonoBehaviour
     // Next Card (Need deck)
     public void OnNextCardCallback()
     {
+        if (cardAnswered == false)
+        {
+            Debug.Log("Need to answer the card first");
+            return;
+        }
+
         // Check last card and add score if needed
-        ScorePoints();
+        if (currentCard.cardType == CardTypes.Guide || currentCard.cardType == CardTypes.Risk || currentCard.cardType == CardTypes.Share)
+        {
+            ScorePoints();
+        }
 
         if (currentGamemode == gamemode.cards)
             NextCard(shuffledDeck);
@@ -245,6 +259,9 @@ public class Gamemanager : MonoBehaviour
 
     private void NextCard (List<Card> cards)
     {
+        cardAnswered = true;
+        answerPanel.SetActive(false);
+
         // Check if there are cards left in the deck
         if (cards.Count <= 0)
         {
@@ -262,9 +279,121 @@ public class Gamemanager : MonoBehaviour
 
         // Remove card from the deck
         cards.Remove(currentCard);
+
+        // Check if the answers need to pop up
+        if (currentCard.cardType == CardTypes.Choice || currentCard.cardType == CardTypes.Smarts)
+        {
+            SetupAnswers();
+            cardAnswered = false;
+        }
     }
 
-    // Check Answer (Need currentCard)
+    private void SetupAnswers()
+    {
+        answerPanel.SetActive(true);
+
+        for (int i = 0; i < answerButtons.Count; i++)
+        {
+            answerButtons[i].SetActive(true);
+        }
+
+        if (currentCard.txt_AnswerA == "True or False?")
+        {
+            answerButtons[0].GetComponentInChildren<TextMeshProUGUI>().text = "True";
+            answerButtons[1].GetComponentInChildren<TextMeshProUGUI>().text = "False";
+
+            answerButtons[2].SetActive(false);
+            answerButtons[3].SetActive(false);
+            answerButtons[4].SetActive(false);
+
+            return;
+        }
+
+        if (currentCard.txt_AnswerA != "-" || currentCard.txt_AnswerA != "")
+        {
+            answerButtons[0].GetComponentInChildren<TextMeshProUGUI>().text = "A";
+
+            if (currentCard.txt_AnswerB != "-" || currentCard.txt_AnswerB != "")
+            {
+                answerButtons[1].GetComponentInChildren<TextMeshProUGUI>().text = "B";
+
+                if (currentCard.txt_AnswerC != "-" || currentCard.txt_AnswerC != "")
+                {
+                    answerButtons[2].GetComponentInChildren<TextMeshProUGUI>().text = "C";
+
+                    answerButtons[3].SetActive(false);
+                    answerButtons[4].SetActive(false);
+                }
+                else
+                {
+                    answerButtons[2].SetActive(false);
+                    answerButtons[3].SetActive(false);
+                    answerButtons[4].SetActive(false);
+                }
+            }
+            else
+            {
+                answerButtons[1].SetActive(false);
+                answerButtons[2].SetActive(false);
+                answerButtons[3].SetActive(false);
+                answerButtons[4].SetActive(false);
+            }
+
+        }
+        else
+        {
+            answerButtons[0].SetActive(false);
+            answerButtons[1].SetActive(false);
+            answerButtons[2].SetActive(false);
+            answerButtons[3].SetActive(false);
+            answerButtons[4].SetActive(false);
+        }
+        
+    }
+
+    // Check Answer
+    public void CheckAnswer(int buttonID)
+    {
+        if (cardAnswered == true)
+        {
+            Debug.Log("Already answered!");
+            return;
+        }
+
+        cardAnswered = true;
+
+        if (currentCard.CorrectAnswer == "TRUE" || currentCard.CorrectAnswer == "A")
+        {
+            if (buttonID == 0)
+            {
+                Debug.Log("Correct Answer!");
+                ScorePoints();
+                return;
+            }
+        }
+
+        if (currentCard.CorrectAnswer == "FALSE" || currentCard.CorrectAnswer == "B")
+        {
+            if (buttonID == 1)
+            {
+                Debug.Log("Correct Answer!");
+                ScorePoints();
+                return;
+            }
+        }
+
+        if (currentCard.CorrectAnswer == "C")
+        {
+            if (buttonID == 2)
+            {
+                Debug.Log("Correct Answer!");
+                ScorePoints();
+                return;
+            }
+        }
+
+        Debug.Log("Wrong answer!");
+    }
 
     // Add Score to the current player (Need points and current player)
     private void ScorePoints()
@@ -272,8 +401,6 @@ public class Gamemanager : MonoBehaviour
         playerScores.AddScore(playerTurn, currentCard.pointsValue);
         scoreboard.UpdateScoreDisplay(GetCurrentScores());
     }
-
-    // Pop card out of the deck (Need currentCard and deck)
 
     // Mark the current card (Need currentCard)
     private void MarkCard(Card card)
