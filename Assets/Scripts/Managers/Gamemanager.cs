@@ -14,25 +14,8 @@ public class Gamemanager : MonoBehaviour
     private GameDatabase gameDatabase;
     private CSVScriptReader backupDatabase;
 
-    // Temporary! --------------------------------------------------------------
-    [Header("Cards in the game")]
-    public List<diversiChoiceCard> choiceCards;
-    public List<diversiGuideCard> guideCards;
-    public List<diversiRiskCard> riskCards;
-    public List<diversiShareCard> shareCards;
-    public List<diversiSmartsCard> smartsCards;
-    // End Temporary! ----------------------------------------------------------
-
     [Header("Options")]
     public bool randomizeStartingPlayer;
-
-    // Temporary! --------------------------------------------------------------
-    private List<diversiChoiceCard> markedChoiceCards = new List<diversiChoiceCard>();
-    private List<diversiGuideCard> markedGuideCards = new List<diversiGuideCard>();
-    private List<diversiRiskCard> markedRiskCards = new List<diversiRiskCard>();
-    private List<diversiShareCard> markedShareCards = new List<diversiShareCard>();
-    private List<diversiSmartsCard> markedSmartsCards = new List<diversiSmartsCard>();
-    // End Temporary! ----------------------------------------------------------
 
     // Combined variables
     private List<string> players;
@@ -40,6 +23,7 @@ public class Gamemanager : MonoBehaviour
     private gamemode currentGamemode;
     private Card currentCard;
     private List<Card> markedCards;
+    private PlayerScores playerScores;
 
     // Just Cards gameplay variables
     private List<Card> shuffledDeck;
@@ -84,6 +68,8 @@ public class Gamemanager : MonoBehaviour
 
     private void Start()
     {
+        playerScores = team.GetComponent<PlayerScores>();
+
         SetupPlayers();
         SetupScoreboard();
 
@@ -94,6 +80,7 @@ public class Gamemanager : MonoBehaviour
         currentGamemode = gameDatabase.GetGamemode();
 
         SetupCards();
+        SetupFirstCard();
     }
 
     private void SetupPlayers()
@@ -129,8 +116,6 @@ public class Gamemanager : MonoBehaviour
 
     private void SetupScoreboard()
     {
-        PlayerScores playerScores = team.GetComponent<PlayerScores>();
-
         // Check if there are players
         if (players == null || players.Count <= 0)
         {
@@ -160,22 +145,22 @@ public class Gamemanager : MonoBehaviour
             {
                 // .. create a new database
                 CreateCardDatabase();
+            }
 
-                // And add a maximum of 10 dummy cards to the game
-                List<Card> backupCards = backupDatabase.GetCards();
+            // And add a maximum of 10 dummy cards to the game
+            List<Card> backupCards = FindObjectOfType<CSVScriptReader>().GetCards();
 
-                int cardsAdded = 10;
+            int cardsAdded = 10;
 
-                if (backupCards.Count <= 10)
-                {
-                    cardsAdded = backupCards.Count;
-                }
+            if (backupCards.Count <= 10)
+            {
+                cardsAdded = backupCards.Count;
+            }
 
-                // Add the cards to the database
-                for (int i = 0; i < cardsAdded; i++)
-                {
-                    gameDatabase.AddCard(backupCards[i]);
-                }
+            // Add the cards to the database
+            for (int i = 0; i < cardsAdded; i++)
+            {
+                gameDatabase.AddCard(backupCards[i]);
             }
         }
 
@@ -210,6 +195,19 @@ public class Gamemanager : MonoBehaviour
 
         return cards;
     }
+
+    private void SetupFirstCard()
+    {
+        if (currentGamemode == gamemode.cards)
+        {
+            // Setup the first card
+            NextCard(shuffledDeck);
+        }
+        else if (currentGamemode == gamemode.rollingCube)
+        {
+            // Let the player roll with the dice etc.
+        }
+    }
     #endregion
 
     #region Gameplay - Just Cards
@@ -229,10 +227,15 @@ public class Gamemanager : MonoBehaviour
     // Next Card (Need deck)
     public void OnNextCardCallback()
     {
+        // Check last card and add score if needed
+        ScorePoints();
+
         if (currentGamemode == gamemode.cards)
             NextCard(shuffledDeck);
         else if (currentGamemode == gamemode.rollingCube)
             RollTheCube();
+
+        NextPlayer();
     }
 
     public void OnMarkCardCallback()
@@ -264,6 +267,11 @@ public class Gamemanager : MonoBehaviour
     // Check Answer (Need currentCard)
 
     // Add Score to the current player (Need points and current player)
+    private void ScorePoints()
+    {
+        playerScores.AddScore(playerTurn, currentCard.pointsValue);
+        scoreboard.UpdateScoreDisplay(GetCurrentScores());
+    }
 
     // Pop card out of the deck (Need currentCard and deck)
 
@@ -304,7 +312,7 @@ public class Gamemanager : MonoBehaviour
 
     private int[] GetCurrentScores()
     {
-        return team.GetComponent<PlayerScores>().GetScores();
+        return playerScores.GetScores();
     }
     #endregion
 }

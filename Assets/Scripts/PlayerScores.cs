@@ -8,6 +8,8 @@ public class PlayerScores : MonoBehaviour
 
     public void SetupScores(int playerAmount)
     {
+        Debug.Log("Setup Scores");
+
         // Initialize the array
         playerScores = new int[playerAmount];
 
@@ -21,7 +23,7 @@ public class PlayerScores : MonoBehaviour
     public void AddScore(int playerIndex, int points)
     {
         // Check if that player exists
-        if (playerIndex < playerScores.Length)
+        if (playerIndex > playerScores.Length)
         {
             Debug.LogError("Could not add score because player " + playerIndex + " does not exist!");
             return;
@@ -29,7 +31,6 @@ public class PlayerScores : MonoBehaviour
 
         // Add the points to the total score of the player
         playerScores[playerIndex] += points;
-        Debug.Log("Player " + playerIndex + " total score: " + playerScores[playerIndex]);
     }
 
     public int[] GetScores()
