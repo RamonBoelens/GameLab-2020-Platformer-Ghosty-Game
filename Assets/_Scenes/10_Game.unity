@@ -289,6 +289,7 @@ MonoBehaviour:
   - {fileID: 127718413}
   - {fileID: 1071754823}
   answerPanel: {fileID: 308358260}
+  cardAnimator: {fileID: 960400689}
   randomizeStartingPlayer: 0
 --- !u!4 &80690702
 Transform:
@@ -1101,6 +1102,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 719360601}
   m_CullTransparentMesh: 0
+--- !u!95 &960400689 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7274324095366734983, guid: 25dafca9e28a61340bd67d0dfcfca161,
+    type: 3}
+  m_PrefabInstance: {fileID: 1437195205}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1041502208
 GameObject:
   m_ObjectHideFlags: 0
@@ -2624,17 +2631,17 @@ PrefabInstance:
     - target: {fileID: 1679018019432660793, guid: 25dafca9e28a61340bd67d0dfcfca161,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1679018019432660793, guid: 25dafca9e28a61340bd67d0dfcfca161,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.8529872
+      value: 0.8526401
       objectReference: {fileID: 0}
     - target: {fileID: 1679018019432660793, guid: 25dafca9e28a61340bd67d0dfcfca161,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.52193195
+      value: 0.5224987
       objectReference: {fileID: 0}
     - target: {fileID: 1679018019432660793, guid: 25dafca9e28a61340bd67d0dfcfca161,
         type: 3}
@@ -2649,7 +2656,7 @@ PrefabInstance:
     - target: {fileID: 1679018019432660793, guid: 25dafca9e28a61340bd67d0dfcfca161,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -117.076
+      value: -117
       objectReference: {fileID: 0}
     - target: {fileID: 1679018019432660793, guid: 25dafca9e28a61340bd67d0dfcfca161,
         type: 3}
