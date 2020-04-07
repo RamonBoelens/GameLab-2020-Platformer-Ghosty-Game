@@ -8,8 +8,6 @@ public class PlayerScores : MonoBehaviour
 
     public void SetupScores(int playerAmount)
     {
-        Debug.Log("Setup Scores");
-
         // Initialize the array
         playerScores = new int[playerAmount];
 

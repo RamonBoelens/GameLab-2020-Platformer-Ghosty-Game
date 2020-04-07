@@ -84,10 +84,14 @@ public class CardDisplay : MonoBehaviour
         else if (card.cardType == CardTypes.Guide)
         {
             // Enable the slots we need
+            txt_Description.enabled = true;
             txt_Instruction.enabled = true;
             txt_Quote.enabled = true;
 
             // Fill out he fields with information
+            if (card.txt_Front != "-" || card.txt_Front != "")
+                txt_Description.text = card.txt_Front;
+
             txt_Instruction.text = card.txt_Instruction;
             txt_Quote.text = card.txt_Qoute + "\n   - " + card.txt_QouteAssosiation; 
         }
