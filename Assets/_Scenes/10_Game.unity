@@ -872,7 +872,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 80690701}
-        m_MethodName: TempMarkCard
+        m_MethodName: OnMarkCardCallback
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1148,7 +1148,7 @@ PrefabInstance:
     - target: {fileID: 4413940667292405470, guid: 25dafca9e28a61340bd67d0dfcfca161,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 0
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4413940667292405470, guid: 25dafca9e28a61340bd67d0dfcfca161,
         type: 3}
@@ -1158,17 +1158,22 @@ PrefabInstance:
     - target: {fileID: 4413940667292405470, guid: 25dafca9e28a61340bd67d0dfcfca161,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4413940667292405470, guid: 25dafca9e28a61340bd67d0dfcfca161,
         type: 3}
       propertyPath: m_textInfo.lineCount
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4413940667292405470, guid: 25dafca9e28a61340bd67d0dfcfca161,
         type: 3}
       propertyPath: m_textInfo.pageCount
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413940667292405470, guid: 25dafca9e28a61340bd67d0dfcfca161,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5924385462661462640, guid: 25dafca9e28a61340bd67d0dfcfca161,
         type: 3}

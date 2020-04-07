@@ -16,28 +16,16 @@ public class CardDisplay : MonoBehaviour
     [Header("Card Back")]
     public TextMeshProUGUI txt_Explanation;
 
+    [Header("Card Materials")]
+    public Material[] choiceCard;
+    public Material[] guideCard;
+    public Material[] riskCard;
+    public Material[] shareCard;
+    public Material[] smartsCard;
+
     private Card currentCard;
     private Material[] prefabMaterials;
     private Material[] thisCardMaterials;
-
-
-
-    [Header("Card Slots")]
-    public diversiChoiceCard choiceCard;
-    public diversiGuideCard  guideCard;
-    public diversiRiskCard   riskCard;
-    public diversiShareCard  shareCard;
-    public diversiSmartsCard smartsCard;
-
-    [Header("Card Front")]
-    public TextMeshProUGUI textInstructionFrontSlot;
-    public TextMeshProUGUI textAnswersFrontSlot;
-    //public TextMeshProUGUI textFollowUpFrontSlot;
-    //public Image artwork;
-
-    [Header("Card Back")]
-    public TextMeshProUGUI textInstructionBackSlot;
-    //public TextMeshProUGUI textFollowUpBackSlot;
 
     private void Awake()
     {
@@ -47,182 +35,127 @@ public class CardDisplay : MonoBehaviour
 
     public void UpdateCard(Card card)
     {
+        // Update the current card
         currentCard = card;
-    }
+        // Empty all the text slots and the artwork slot and disable them
+        ResetFields();
 
-    public void UpdateChoiceCard(diversiChoiceCard card)
-    {
-        // Empty the other card slots
-        guideCard = null;
-        riskCard = null;
-        shareCard = null;
-        smartsCard = null;
-
-        // Empty the textfields we don't need
-        //textFollowUpFrontSlot.text = null;
-
-        // Add card to the card slot
-        choiceCard = card;
-
-        // Update the other fields
-        textInstructionFrontSlot.text = card.Instruction;
-        textAnswersFrontSlot.text = "True \nFalse";
-        textInstructionBackSlot.text = card.BCK_Answer;
-        //textFollowUpBackSlot.text = card.BCK_FollowUp;
-
-        // Update image if there is one
-        if (card.Artwork != null)
+        // Check what card type it is because they will need different text slots
+        if (card.cardType == CardTypes.Choice || card.cardType == CardTypes.Smarts)
         {
-            artwork.sprite = card.Artwork;
+            // Enable the slots we need
+            txt_Description.enabled = true;
+            txt_Instruction.enabled = true;
+            txt_Answers.enabled = true;
+            txt_Explanation.enabled = true;
+
+            // Fill out the fields with information
+            txt_Description.text = card.txt_Front;
+            txt_Instruction.text = card.txt_Instruction;
+            txt_Explanation.text = card.txt_Back;
+
+            // Fill out the answers slot
+            if (card.txt_AnswerB != "-" || card.txt_AnswerB != "")
+            {
+                if (card.txt_AnswerC != "-" || card.txt_AnswerC != "")
+                {
+                    txt_Answers.text = card.txt_AnswerA + "\n" + card.txt_AnswerB + "\n" + card.txt_AnswerC;
+                }
+                else
+                {
+                    txt_Answers.text = card.txt_AnswerA + "\n" + card.txt_AnswerB;
+                }
+            }
+            else
+            {
+                txt_Answers.text = card.txt_AnswerA;
+            }            
         }
-        // Else hide the image component
-        else
+        else if (card.cardType == CardTypes.Risk || card.cardType == CardTypes.Share)
         {
-            artwork.enabled = false;
+            // Enable the slots we need
+            txt_Description.enabled = true;
+            txt_Instruction.enabled = true;
+
+            // Fill out he fields with information
+            txt_Description.text = card.txt_Front;
+            txt_Instruction.text = card.txt_Instruction;
         }
-
-        // Update the card material
-        thisCardMaterials = prefabMaterials;
-        thisCardMaterials[0] = new Material(card.CardBack);
-        thisCardMaterials[1] = new Material(card.CardFront);
-        GetComponent<MeshRenderer>().materials = thisCardMaterials;
-    }
-
-    public void UpdateGuideCard(diversiGuideCard card)
-    {
-        // Empty the other card slots
-        choiceCard = null;
-        riskCard = null;
-        shareCard = null;
-        smartsCard = null;
-
-        // Empty the textfields we don't need
-        textAnswersFrontSlot.text = null;
-        //textFollowUpBackSlot.text = null;
-        textInstructionBackSlot.text = null;
-
-        // Add card to the card slot
-        guideCard = card;
-
-        // Update the other fields
-        textInstructionFrontSlot.text = card.Instruction;
-        //textFollowUpFrontSlot.text = card.FollowUp;
-
-        // Update image if there is one
-        if (card.Artwork != null)
+        else if (card.cardType == CardTypes.Guide)
         {
-            artwork.sprite = card.Artwork;
-        }
-        // Else hide the image component
-        else
-        {
-            artwork.enabled = false;
+            // Enable the slots we need
+            txt_Instruction.enabled = true;
+            txt_Quote.enabled = true;
+
+            // Fill out he fields with information
+            txt_Instruction.text = card.txt_Instruction;
+            txt_Quote.text = card.txt_Qoute + "\n   - " + card.txt_QouteAssosiation; 
         }
 
         // Update the card material
-        thisCardMaterials = prefabMaterials;
-        thisCardMaterials[0] = new Material(card.CardBack);
-        thisCardMaterials[1] = new Material(card.CardFront);
-        GetComponent<MeshRenderer>().materials = thisCardMaterials;
+        UpdateMaterial();
+
+        // Check if the new card has an artwork if so enable it and set it
+        if (card.uniqueAnimationID != 0)
+        {
+            Debug.Log("There is an animation on the card!");
+        }
     }
 
-    public void UpdateRiskCard(diversiRiskCard card)
+    private void ResetFields()
     {
-        // Empty the other card slots
-        choiceCard = null;
-        guideCard = null;
-        shareCard = null;
-        smartsCard = null;
+        // Emptying all the fields
+        txt_Description.text = null;
+        txt_Instruction.text = null;
+        txt_Quote.text = null;
+        txt_Answers.text = null;
+        txt_Explanation.text = null;
+        artwork.sprite = null;
 
-        // Empty the textfields we don't need
-        textAnswersFrontSlot.text = null;
-        //textFollowUpBackSlot.text = null;
-        textInstructionBackSlot.text = null;
+        // Disabling all the fields
+        txt_Description.enabled = false;
+        txt_Instruction.enabled = false;
+        txt_Quote.enabled = false;
+        txt_Answers.enabled = false;
+        txt_Explanation.enabled = false;
+        artwork.enabled = false;
+    }
 
-        // Add card to the card slot
-        riskCard = card;
+    private void UpdateMaterial()
+    {
+        thisCardMaterials = prefabMaterials;
 
-        // Update the other fields
-        textInstructionFrontSlot.text = card.Instruction;
-        //textFollowUpFrontSlot.text = card.FollowUp;
-
-        // Update image if there is one
-        if (card.Artwork != null)
+        if (currentCard.cardType == CardTypes.Choice)
         {
-            artwork.sprite = card.Artwork;
+            thisCardMaterials[0] = new Material(choiceCard[0]);
+            thisCardMaterials[1] = new Material(choiceCard[1]);
         }
-        // Else hide the image component
+        else if (currentCard.cardType == CardTypes.Guide)
+        {
+            thisCardMaterials[0] = new Material(guideCard[0]);
+            thisCardMaterials[1] = new Material(guideCard[1]);
+        }
+        else if (currentCard.cardType == CardTypes.Risk)
+        {
+            thisCardMaterials[0] = new Material(riskCard[0]);
+            thisCardMaterials[1] = new Material(riskCard[1]);
+        }
+        else if (currentCard.cardType == CardTypes.Share)
+        {
+            thisCardMaterials[0] = new Material(shareCard[0]);
+            thisCardMaterials[1] = new Material(shareCard[1]);
+        }
+        else if (currentCard.cardType == CardTypes.Smarts)
+        {
+            thisCardMaterials[0] = new Material(smartsCard[0]);
+            thisCardMaterials[1] = new Material(smartsCard[1]);
+        }
         else
         {
-            artwork.enabled = false;
+            Debug.LogWarning("Can't apply the new card material because the card type " + currentCard.cardType + " doesn't exist!");
         }
 
-        // Update the card material
-        thisCardMaterials = prefabMaterials;
-        thisCardMaterials[0] = new Material(card.CardBack);
-        thisCardMaterials[1] = new Material(card.CardFront);
+        // Apply the new materials
         GetComponent<MeshRenderer>().materials = thisCardMaterials;
-    }
-    public void UpdateShareCard(diversiShareCard card)
-    {
-        // Empty the other card slots
-        choiceCard = null;
-        guideCard = null;
-        riskCard = null;
-        smartsCard = null;
-
-        // Empty the textfields we don't need
-        textAnswersFrontSlot.text = null;
-        //textFollowUpBackSlot.text = null;
-        textInstructionBackSlot.text = null;
-
-        // Add card to the card slot
-        shareCard = card;
-
-        // Update the other fields
-        textInstructionFrontSlot.text = card.Instruction;
-        //textFollowUpFrontSlot.text = card.FollowUp;
-
-        // Update image if there is one
-        if (card.Artwork != null)
-        {
-            artwork.sprite = card.Artwork;
-        }
-        // Else hide the image component
-        else
-        {
-            artwork.enabled = false;
-        }
-
-        // Update the card material
-        thisCardMaterials = prefabMaterials;
-        thisCardMaterials[0] = new Material(card.CardBack);
-        thisCardMaterials[1] = new Material(card.CardFront);
-        GetComponent<MeshRenderer>().materials = thisCardMaterials;
-    }
-
-    public diversiChoiceCard GetChoiceCard()
-    {
-        return choiceCard;
-    }
-
-    public diversiGuideCard GetGuideCard()
-    {
-        return guideCard;
-    }
-
-    public diversiRiskCard GetRiskCard()
-    {
-        return riskCard;
-    }
-
-    public diversiShareCard GetShareCard()
-    {
-        return shareCard;
-    }
-
-    public diversiSmartsCard GetSmartsCard()
-    {
-        return smartsCard;
     }
 }
