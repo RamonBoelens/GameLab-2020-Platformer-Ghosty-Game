@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/11_EndScreen.unity
     guid: 1f6b9fd2798ac5c45b5d855832797f7b
+  - enabled: 1
+    path: Assets/_Scenes/09_Cut Scene Animation.unity
+    guid: 8b22e6c4448ac0946a4b5bb1ecb852c8
   m_configObjects: {}
