@@ -24,6 +24,7 @@ public class Gamemanager : MonoBehaviour
 
     [Header("Options")]
     public bool randomizeStartingPlayer;
+    public int EndScene;
 
     // Combined variables
     private List<string> players;
@@ -531,7 +532,7 @@ public class Gamemanager : MonoBehaviour
             CreateSceneManager();
         }
 
-        sceneManager.LoadScene(6);
+        sceneManager.LoadScene(EndScene);
     }
 
     private int[] GetCurrentScores()
