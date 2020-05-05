@@ -63,6 +63,7 @@ public class NameTransfer : MonoBehaviour
         // Update the whole player list on the screen
         // For now it just shows the latest added name
         textDisplay.text = theName;
+        Debug.Log(theName);
     }
 
     // Save the names of the players
