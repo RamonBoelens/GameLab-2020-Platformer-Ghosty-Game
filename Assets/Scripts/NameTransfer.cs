@@ -34,6 +34,8 @@ public class NameTransfer : MonoBehaviour
         // Check if the name already is in the list
             // If so -> return
 
+        
+
         // Check if the field is empty
         if (inputField.text == "")
         {
@@ -59,11 +61,9 @@ public class NameTransfer : MonoBehaviour
             textDisplay.text = null;
             return;
         }
+
+        textDisplay.text += playerNames[playerNames.Count-1];
         
-        for (int i = 0; i< playerNames.Count; i++)
-        {
-            textDisplay.text = textDisplay.text + playerNames[i];
-        }
         // Update the whole player list on the screen
         // For now it just shows the latest added name
     
