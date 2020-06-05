@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 9, y: -0.5}
-  m_SizeDelta: {x: -28, y: -3}
+  m_AnchoredPosition: {x: 11.5, y: -2}
+  m_SizeDelta: {x: -23, y: -4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &747670631705983839
 CanvasRenderer:
@@ -65,8 +65,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: Toggle
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5290f4109b153a8428f0933967cdf323, type: 2}
+  m_sharedMaterial: {fileID: 1320668362580503595, guid: 5290f4109b153a8428f0933967cdf323,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -238,7 +239,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4860544642574716871}
   - component: {fileID: 4860544642574716870}
-  - component: {fileID: 8538924743379248006}
+  - component: {fileID: 3614405339607563930}
   m_Layer: 5
   m_Name: Toggle
   m_TagString: Untagged
@@ -255,18 +256,18 @@ RectTransform:
   m_GameObject: {fileID: 4860544642574716868}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 4860544642578336592}
   - {fileID: 6443345729475512451}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!114 &4860544642574716870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,7 +314,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8538924743379248006}
+      - m_Target: {fileID: 3614405339607563930}
         m_MethodName: OnValueChange
         m_Mode: 1
         m_Arguments:
@@ -325,7 +326,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_IsOn: 0
---- !u!114 &8538924743379248006
+--- !u!114 &3614405339607563930
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

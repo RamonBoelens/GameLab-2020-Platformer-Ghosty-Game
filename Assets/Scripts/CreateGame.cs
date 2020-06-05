@@ -72,7 +72,7 @@ public class CreateGame : MonoBehaviour
         List<Card> cardDatabase = database.GetCards();
 
         // Get a reference to the GameDatabase
-        GameDatabase gameDatabase = FindObjectOfType<GameDatabase>();
+        GameSettings gameDatabase = FindObjectOfType<GameSettings>();
 
         // Go over each card in the database
         for (int i = 0; i < cardDatabase.Count; i++)
@@ -90,6 +90,6 @@ public class CreateGame : MonoBehaviour
         }
 
         // Set the gamemode
-        gameDatabase.SetGamemode(dropdown.options[dropdown.value].text);
+        //gameDatabase.SetGamemode(dropdown.options[dropdown.value].text);
     }
 }
