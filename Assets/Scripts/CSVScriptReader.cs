@@ -1,21 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-
-
-
 public class CSVScriptReader : MonoBehaviour
 {
     private List<Card> cards = new List<Card>();
 
-    // Start is called before the first frame update
-    void Awake()
+    public List<Card> ReadCardDatabase(TextAsset databaseFile)
     {
-        TextAsset csvdata = Resources.Load<TextAsset>("Database sketch");
+        // Split every line in the file
+        string[] data = databaseFile.text.Split(new char[] { '\n' });
 
-        string[] data = csvdata.text.Split(new char[] { '\n' });
-
-        for (int i = 1; i < data.Length -1; i++)
+        for (int i = 1; i < data.Length - 1; i++)
         {
             string[] row = data[i].Split(new char[] { ';' });
 
@@ -42,6 +36,10 @@ public class CSVScriptReader : MonoBehaviour
                 cards.Add(card);
             }
         }
+
+        Debug.Log("Database succesfully loaded!");
+
+        return cards;
     }
 
     public List<Card> GetCards()

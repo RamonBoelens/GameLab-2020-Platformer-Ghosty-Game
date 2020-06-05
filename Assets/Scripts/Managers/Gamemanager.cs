@@ -17,7 +17,7 @@ public class Gamemanager : MonoBehaviour
     public GameObject markedCardsTitle;
 
     private Scoreboard scoreboard;
-    private GameDatabase gameDatabase;
+    private GameSettings gameDatabase;
     private CSVScriptReader backupDatabase;
     private _SceneManager sceneManager;
     private EndStats endStats;
@@ -49,7 +49,7 @@ public class Gamemanager : MonoBehaviour
     private void Awake()
     {
         // References
-        gameDatabase = FindObjectOfType<GameDatabase>();
+        gameDatabase = FindObjectOfType<GameSettings>();
         scoreboard = GetComponent<Scoreboard>();
         sceneManager = FindObjectOfType<_SceneManager>();
 
@@ -64,9 +64,9 @@ public class Gamemanager : MonoBehaviour
     private void CreateDatabase()
     {
         GameObject GO = new GameObject("Game Database");
-        GO.AddComponent<GameDatabase>();
+        GO.AddComponent<GameSettings>();
 
-        gameDatabase = GO.GetComponent<GameDatabase>();
+        gameDatabase = GO.GetComponent<GameSettings>();
     }
 
     private void CreateCardDatabase()
@@ -88,6 +88,7 @@ public class Gamemanager : MonoBehaviour
 
     private void Start()
     {
+        team = GameObject.Find("Team");
         playerScores = team.GetComponent<PlayerScores>();
 
         SetupPlayers();
@@ -158,7 +159,7 @@ public class Gamemanager : MonoBehaviour
     public void SetupCards()
     {
         // If there are no cards in the current game then add some
-        if (gameDatabase.GetCards() == null || gameDatabase.GetCards().Count <= 0)
+        if (gameDatabase.GetSingleGameCardDatabase() == null || gameDatabase.GetSingleGameCardDatabase().Count <= 0)
         {
             // If there is no object holding the whole database then .. 
             if (FindObjectOfType<CSVScriptReader>() == null)
@@ -195,7 +196,7 @@ public class Gamemanager : MonoBehaviour
     {
         // Shuffle the cards
         shuffledDeck = new List<Card>();
-        shuffledDeck = ShuffleCards(gameDatabase.GetCards());
+        shuffledDeck = ShuffleCards(gameDatabase.GetSingleGameCardDatabase());
     }
 
     public void SetupRollingCubeDeck()
