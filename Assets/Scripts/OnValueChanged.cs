@@ -1,21 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
 public class OnValueChanged : MonoBehaviour
 {
-    private CreateGame createGame;
+    private GameSettings gameSettings;
 
     private void Start()
     {
-        createGame = FindObjectOfType<CreateGame>();
+        gameSettings = FindObjectOfType<GameSettings>();
     }
 
     public void OnValueChange()
     {
-        createGame.CheckToggles();
-        createGame.Tag(GetComponent<Toggle>().isOn, GetComponentInChildren<TextMeshProUGUI>().text);
+        gameSettings.OnValueChanged();
     }
 }

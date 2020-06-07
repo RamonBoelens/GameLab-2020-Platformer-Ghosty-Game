@@ -7,86 +7,90 @@ using TMPro;
 public class GenerateTags : MonoBehaviour
 {
     public GameObject prefab_Toggle;
-    public GameObject toggleParent;
+    public GameObject[] toggleParents;
 
-    private CSVScriptReader database;
-
+    private CardDatabase cardDatabase;
     private Dictionary<string, Toggle> toggles = new Dictionary<string, Toggle>();
-    private List<string> tempTags = new List<string>();
     private List<string> tags = new List<string>();
 
     private void Start()
     {
         // Find the database
-        database = FindObjectOfType<CSVScriptReader>();
+        cardDatabase = FindObjectOfType<CardDatabase>();
 
-        GenerateAllTags(database.GetCards());
-        CheckAllTags();
+        // Check if the database is found
+        if (!cardDatabase)
+        {
+            Debug.LogWarning("Couldn't find the database component!");
+            return;
+        }
+
+        // Generate a list with all the tags and create the toggles based on that list
+        GenerateAllTags(cardDatabase.GetCards());
+        CreateToggles(tags);
     }
 
     private void GenerateAllTags(List<Card> _cards)
     {
-        // Go over all the cards and add their tags to a temporary list
+        if (_cards.Count <= 0)
+        {
+            Debug.LogWarning("The list from the card database is empty!");
+            return;
+        }
+
+        // Create a list with all the different tags
+        bool newTag = true;
+
         foreach (Card card in _cards)
         {
-            if (card.culture != "" || card.culture != "-")
+            for (int i = 0; i < tags.Count; i++)
             {
-                AddTag(card.culture);
+                if (card.culture == tags[i] || card.culture == "-" || card.culture == "")
+                    newTag = false;
+                else
+                    newTag = true;
+            }
+
+            if (newTag)
+            {
+                tags.Add(card.culture);
             }
         }
     }
 
-    private void CheckAllTags()
+    private void CreateToggles(List<string> _tags)
     {
-        for (int i = 0; i < tempTags.Count; i++)
+        // Safety Checks
+        if (tags.Count <= 0)
         {
-            AddTag(tempTags[i]);
+            Debug.LogWarning("No tags were found!");
+            return;
         }
-    }
-
-    private void AddTag(string tag)
-    {
-        // Go over all the added tags
-        for (int i = 0; i < tags.Count; i++)
+        else if (toggleParents.Length <= 0)
         {
-            // If the tag already exist then return out of the function
-            if (tag == tags[i])
+            Debug.LogWarning("No parents for the toggles are set!");
+            return;
+        }
+
+        // Go over all the places where the tags should be generated
+        foreach (GameObject parent in toggleParents)
+        {
+            // Go over each tag to create a toggle
+            foreach (string tag in _tags)
             {
-                return;
+                // Create a new toggle and parent it the the toggle parent object
+                GameObject toggle = Instantiate(prefab_Toggle, new Vector3(0, 0, 0), Quaternion.identity);
+                toggle.transform.SetParent(parent.transform);
+
+                // Change the label name
+                toggle.transform.Find("Label").GetComponentInChildren<TextMeshProUGUI>().text = tag;
+
+                // Make sure the toggle is set to false
+                toggle.GetComponent<Toggle>().isOn = false;
+
+                // Add toggle to the dictionary of toggles
+                toggles.Add(tag, toggle.GetComponent<Toggle>());
             }
-        }
-
-        // Add the tag to the list and create a toggle
-        tags.Add(tag);
-        CreateToggle(tag);
-    }
-
-    private void CreateToggle(string tag)
-    {
-        // Create a new toggle and parent it the the toggle parent object
-        GameObject toggle = Instantiate(prefab_Toggle, new Vector3(0,0,0), Quaternion.identity);
-        toggle.transform.SetParent(toggleParent.transform);
-
-        // Change the label name
-        toggle.transform.Find("Label").GetComponentInParent<TextMeshProUGUI>().text = tag;
-
-        // Make sure the toggle is set to false
-        toggle.GetComponent<Toggle>().isOn = false;
-
-        // Add toggle to the dictionary of toggles
-        toggles.Add(tag ,toggle.GetComponent<Toggle>());
-    }
-
-    public bool ToggleIsTrue (string tag)
-    {
-        Toggle toggle = null;
-
-        if (toggles.TryGetValue(tag, out toggle))
-            return toggle.isOn;
-        else
-        {
-            Debug.Log("Couldn't find the tag!");
-            return false;
         }
     }
 

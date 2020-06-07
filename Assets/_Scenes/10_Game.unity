@@ -292,7 +292,7 @@ MonoBehaviour:
   cardAnimator: {fileID: 7274324094484479810}
   markedCardsTitle: {fileID: 1234989334}
   randomizeStartingPlayer: 0
-  EndScene: 7
+  EndScene: 4
 --- !u!4 &80690702
 Transform:
   m_ObjectHideFlags: 0

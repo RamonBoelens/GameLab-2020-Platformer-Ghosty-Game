@@ -6,68 +6,166 @@ using TMPro;
 
 public class NameTransfer : MonoBehaviour
 {
-    private List<string> playerNames = new List<string>();
-    private string theName;
-
+    [Header("References")]
+    public TMP_InputField inputfieldTeamName = null;
+    public TMP_InputField inputfieldPlayerName = null;
+    [Space(5)]
+    public TextMeshProUGUI teamNameTextfield = null;
+    public GameObject playerNameContentObject = null;
+    [Space(5)]
+    public Button editPlayerButton = null;
+    public Button deletePlayerButton = null;
+    [Space (5)]
     public GameObject teamObject;
 
-    public Text inputField;
-    public Text textDisplay;
+    [Header("Prefabs")]
+    public GameObject playerNamePrefab = null;
 
-    // Being able to change the char limit from this script
+    [Header("Settings")]
+    [Range(3, 15)]public int teamNameCharLimit;
+    [Range(2, 20)]public int playerNameCharLimit;
+
+    private string teamName;
+    private List<string> playerNames = new List<string>();
+    
 
     private void Start()
     {
         // Set the char limit
+        inputfieldTeamName.characterLimit = teamNameCharLimit;
+        inputfieldPlayerName.characterLimit = playerNameCharLimit;
 
-        UpdatePlayerDisplay();
-    }
+        // Set the buttons to be non-interactable
+        editPlayerButton.interactable = false;
+        deletePlayerButton.interactable = false;
 
-    public void StoreName()
-    {
-        // Check if the first or last character is a space
-            // If so delete those
-
-        // Check if there are double spaces in the string itself
-            // If so delete one of the double spaces
-
-        // Check if the name already is in the list
-            // If so -> return
-
-        
-
-        // Check if the field is empty
-        if (inputField.text == "")
-        {
-            Debug.LogWarning("The inputfield was empty, so I couldn't add the player name.");
-            return;
-        }
-
-        // Store the name in a list
-        theName = inputField.text;
-        playerNames.Add(theName);
-
-        // Reset the name in the input field
-
-        // Update the list of players on the screen
         UpdatePlayerDisplay();
     }
 
     public void UpdatePlayerDisplay()
     {
-        // If there are no players yet then empty the list
+        // Update Team Name
+        if (teamName != null)
+            teamNameTextfield.text = teamName;
+        else
+            teamNameTextfield.text = "Team Name";
+
+        // If there are no players then empty the list
         if (playerNames.Count <= 0)
         {
-            textDisplay.text = null;
+            foreach (Transform child in playerNameContentObject.transform)
+            {
+                Destroy(child.gameObject);
+            }
             return;
         }
 
-        textDisplay.text += playerNames[playerNames.Count-1];
-        
-        // Update the whole player list on the screen
-        // For now it just shows the latest added name
-    
-        Debug.Log(playerNames.Count);
+        // Else there are players added so show them
+
+        // Go over all the names
+        foreach (string player in playerNames)
+        {
+            bool nameFound = false;
+
+            // Check if that specific name already has an object
+            foreach (Transform nameObject in playerNameContentObject.transform)
+            {
+                TextMeshProUGUI nameTextfield = nameObject.transform.Find("Text_PlayerName").GetComponent<TextMeshProUGUI>();
+
+                // If the name is the same then ..
+                if (nameTextfield.text == player)
+                {
+                    // .. set the boolean to true
+                    // so we know we DON'T have to create a new object
+                    nameFound = true;
+                }
+            }
+
+            // Check if the name was not found
+            if (!nameFound)
+            {
+                // Create a new object
+                GameObject GO = Instantiate(playerNamePrefab, playerNameContentObject.transform);
+                GO.transform.Find("Text_PlayerName").GetComponent<TextMeshProUGUI>().text = player;
+            }
+
+            // Reset the name found bool
+            nameFound = false;
+        }
+    }
+
+    public void ClearInformation()
+    {
+        teamName = null;
+        playerNames.Clear();
+
+        inputfieldPlayerName.text = null;
+        inputfieldTeamName.text = null;
+
+        foreach (Transform child in playerNameContentObject.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        UpdatePlayerDisplay();
+    }
+
+    public void AddTeamName()
+    {
+        if (inputfieldTeamName.text == "")
+        {
+            Debug.LogWarning("The inputfield is empty!");
+            return;
+        }
+
+        teamName = inputfieldTeamName.text;
+        teamNameTextfield.text = teamName;
+    }
+
+    public void AddPlayerName()
+    {
+        string playerName = inputfieldPlayerName.text;
+
+        // Check if the first or last character is a space
+        // If so delete those
+
+        // Check if there are double spaces in the string itself
+        // If so delete one of the double spaces
+
+        // Check if the name already is in the list
+        bool nameFound = false;
+
+        foreach (string player in playerNames)
+        {
+            if (playerName == player)
+            {
+                nameFound = true;
+            }
+        }
+
+        // If so -> return
+        if (nameFound)
+        {
+            // Send feedback to the screen
+
+            // Return
+            return;
+        }
+
+        // Check if the field is empty
+        if (playerName == "")
+        {
+            Debug.LogWarning("The inputfield was empty, so I couldn't add the player name.");
+            return;
+        }
+
+        // Add the player to the list
+        playerNames.Add(playerName);
+
+        // Reset the name in the input field
+
+        // Update the list of players on the screen
+        UpdatePlayerDisplay();
     }
 
     // Save the names of the players
