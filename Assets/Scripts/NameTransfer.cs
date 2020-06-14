@@ -179,6 +179,7 @@ public class NameTransfer : MonoBehaviour
     // Save the names of the players
     public void SetupPlayers()
     {
+        teamObject.GetComponent<PlayersStorage>().SaveTeamName(teamName);
         teamObject.GetComponent<PlayersStorage>().SavePlayerNames(playerNames);
         teamObject.GetComponent<PlayerScores>().SetupScores(playerNames.Count);
     }

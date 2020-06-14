@@ -9,6 +9,7 @@ public class Scoreboard : MonoBehaviour
     [Header("References")]
     public GameObject prefab_PlayerUI;
     public GameObject ui_PlayerParent;
+    public TextMeshProUGUI ui_TeamName;
 
     [Header("Images")]
     public Sprite blankNameBackground;
@@ -24,7 +25,9 @@ public class Scoreboard : MonoBehaviour
     }
 
     public void SetupScoreboardDisplay(List<string> names)
-    {
+    { 
+        ui_TeamName.text = gamemanager.team.GetComponent<PlayersStorage>().GetTeamName();
+
         for (int i = 0; i < names.Count; i++)
         {
             // Create new player UI object and parent it

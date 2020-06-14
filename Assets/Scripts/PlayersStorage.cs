@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayersStorage : MonoBehaviour
 {
     private List<string> playerNamesList;
+    private string teamName;
 
     public void SavePlayerNames(List<string> playerNames)
     {
@@ -18,8 +19,18 @@ public class PlayersStorage : MonoBehaviour
         }
     }
 
+    public void SaveTeamName(string name)
+    {
+        teamName = name;
+    }
+
     public List<string> GetPlayerNames()
     {
         return playerNamesList;
+    }
+
+    public string GetTeamName()
+    {
+        return teamName;
     }
 }
