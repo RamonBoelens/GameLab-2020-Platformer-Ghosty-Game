@@ -39,6 +39,7 @@ public class DisplayScores : MonoBehaviour
             textfield.enableWordWrapping = false;
             textfield.alignment = TextAlignmentOptions.Left;
             textfield.fontSize = 0.43f;
+            textfield.color = Color.black;
         }
     }
 
