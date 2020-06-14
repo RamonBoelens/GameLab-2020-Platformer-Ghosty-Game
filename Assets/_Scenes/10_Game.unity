@@ -323,10 +323,6 @@ MonoBehaviour:
     type: 3}
   ui_PlayerParent: {fileID: 4298568823071902692}
   ui_TeamName: {fileID: 461143896}
-  blankNameBackground: {fileID: 21300000, guid: 67a71377be2b46a42bd2040672c312ac,
-    type: 3}
-  highlightedNameBackground: {fileID: 21300000, guid: 4986056ae4838024b94a50f0908e32ef,
-    type: 3}
 --- !u!1 &97840989
 GameObject:
   m_ObjectHideFlags: 0

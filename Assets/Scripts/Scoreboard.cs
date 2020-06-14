@@ -11,13 +11,8 @@ public class Scoreboard : MonoBehaviour
     public GameObject ui_PlayerParent;
     public TextMeshProUGUI ui_TeamName;
 
-    [Header("Images")]
-    public Sprite blankNameBackground;
-    public Sprite highlightedNameBackground;
-
     private Gamemanager gamemanager;
     private List<TextMeshProUGUI> textField_PlayerScores = new List<TextMeshProUGUI>();
-    private List<Image> backgroundImages = new List<Image>();
 
     private void Awake()
     {
@@ -40,10 +35,6 @@ public class Scoreboard : MonoBehaviour
             // Find and store the player score field
             Transform scoreField = playerPrefab.transform.Find("TXT_Points");
             textField_PlayerScores.Add(scoreField.GetComponentInParent<TextMeshProUGUI>());
-
-            // Find and store the background image
-            //Transform background = playerPrefab.transform.Find("Background");
-            //backgroundImages.Add(background.GetComponentInParent<Image>());
         }
     }
 
@@ -58,13 +49,11 @@ public class Scoreboard : MonoBehaviour
 
     public void UpdateTurn(int playerTurnID)
     {
-        return;
-
-        for (int i = 0; i < backgroundImages.Count; i++)
+        for (int i = 0; i < textField_PlayerScores.Count; i++)
         {
-            backgroundImages[i].sprite = blankNameBackground;
+            textField_PlayerScores[i].transform.parent.Find("Highlight GFX").GetComponent<Image>().enabled = false;
         }
 
-        backgroundImages[playerTurnID].sprite = highlightedNameBackground;
+        textField_PlayerScores[playerTurnID].transform.parent.Find("Highlight GFX").GetComponent<Image>().enabled = true;
     }
 }
