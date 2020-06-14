@@ -24,6 +24,7 @@ public class NameTransfer : MonoBehaviour
     [Header("Settings")]
     [Range(3, 15)]public int teamNameCharLimit;
     [Range(2, 20)]public int playerNameCharLimit;
+    [Range(1, 10)]public int maxTeamMembers;
 
     private string teamName;
     private List<string> playerNames = new List<string>();
@@ -124,6 +125,13 @@ public class NameTransfer : MonoBehaviour
 
     public void AddPlayerName()
     {
+        // If there are already 7 team members
+        if (playerNames.Count >= maxTeamMembers)
+        {
+            Debug.Log("Already maximum amount of players reached.. " + playerNames.Count);
+            return;
+        }
+
         string playerName = inputfieldPlayerName.text;
 
         // Check if the first or last character is a space

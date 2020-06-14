@@ -15,6 +15,14 @@ public class NextSceneAfterSecs : MonoBehaviour
         StartCoroutine(LoadNextScene());
     }
 
+    private void Update()
+    {
+        if (Input.anyKeyDown)
+        {
+            SceneManager.LoadScene(sceneToLoad);
+        }
+    }
+
     IEnumerator LoadNextScene()
     {
         yield return new WaitForSeconds(loadSceneAfterSecs);
