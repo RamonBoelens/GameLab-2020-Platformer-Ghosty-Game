@@ -27,9 +27,9 @@ public class Scoreboard : MonoBehaviour
     {
         for (int i = 0; i < names.Count; i++)
         {
-            // Create new player UI and parent it
+            // Create new player UI object and parent it
             GameObject playerPrefab = Instantiate(prefab_PlayerUI, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
-            playerPrefab.transform.SetParent(ui_PlayerParent.transform);
+            playerPrefab.transform.SetParent(ui_PlayerParent.transform, false);
 
             // Change the name
             playerPrefab.transform.Find("TXT_Name").GetComponentInParent<TextMeshProUGUI>().text = names[i];
@@ -39,8 +39,8 @@ public class Scoreboard : MonoBehaviour
             textField_PlayerScores.Add(scoreField.GetComponentInParent<TextMeshProUGUI>());
 
             // Find and store the background image
-            Transform background = playerPrefab.transform.Find("Background");
-            backgroundImages.Add(background.GetComponentInParent<Image>());
+            //Transform background = playerPrefab.transform.Find("Background");
+            //backgroundImages.Add(background.GetComponentInParent<Image>());
         }
     }
 
@@ -55,6 +55,8 @@ public class Scoreboard : MonoBehaviour
 
     public void UpdateTurn(int playerTurnID)
     {
+        return;
+
         for (int i = 0; i < backgroundImages.Count; i++)
         {
             backgroundImages[i].sprite = blankNameBackground;

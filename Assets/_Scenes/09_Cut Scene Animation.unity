@@ -457,7 +457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadSceneAfterSecs: 12
-  sceneToLoad: 4
+  sceneToLoad: 3
   team: {fileID: 5843005182310094929, guid: 26e0d0a4508ee744584bac3547faf55d, type: 3}
 --- !u!4 &650983793
 Transform:
