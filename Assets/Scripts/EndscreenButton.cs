@@ -1,11 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EndscreenButton : MonoBehaviour
 {
-    public _SceneManager sceneManager;
-
     // Update is called once per frame
     void Update()
     {
@@ -16,7 +15,10 @@ public class EndscreenButton : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.transform.name == "Buzzer") sceneManager.LoadScene(0);
+                if (hit.transform.name == "Buzzer")
+                {
+                    SceneManager.LoadScene(0);
+                }
             }
         }
     }

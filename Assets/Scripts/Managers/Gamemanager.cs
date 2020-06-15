@@ -152,6 +152,8 @@ public class Gamemanager : MonoBehaviour
             playerScores.SetupScores(players.Count);
         }
 
+        playerScores.SetupScores(players.Count);
+
         scoreboard.SetupScoreboardDisplay(players);
         scoreboard.UpdateScoreDisplay(GetCurrentScores());
     }
@@ -526,7 +528,7 @@ public class Gamemanager : MonoBehaviour
         }
 
         // Save players and score
-        endStats.SaveData(players, GetCurrentScores());
+        endStats.SaveData(players, GetCurrentScores(), markedCards);
 
         if (FindObjectOfType<_SceneManager>() == null)
         {
